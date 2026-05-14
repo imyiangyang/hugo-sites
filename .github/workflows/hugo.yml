@@ -28,7 +28,7 @@ jobs:
         uses: actions/configure-pages@v5
 
       - name: Setup Hugo
-        uses: actions/setup-hugo@v2
+        uses: peaceiris/actions-setup-hugo@v3
         with:
           hugo-version: 'latest'
           extended: true         # 很多主题（包括 moments）需要 extended 版本来处理 CSS 样式
