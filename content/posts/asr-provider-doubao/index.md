@@ -7,6 +7,8 @@ title = '如何在VBCC中添加豆包ASR识别引擎'
 
 首先登录火山引擎，进入[豆包语音控制台](https://console.volcengine.com/speech/)，根据提示需要先完成实名认证。
 
+<!--more-->
+
 ![image1](Snipaste_2026-06-02_00-16-34.png)
 
 ![image2](Snipaste_2026-06-02_00-22-54.png)
