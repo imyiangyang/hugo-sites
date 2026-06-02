@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+<title>隐私政策 | VBCC</title>
+<meta name="description" content="VBCC 隐私政策：说明本 App 的数据处理实践。语音在设备本地实时识别，不在服务器存储。" />
+<style>
+  :root {
+    --fg: #1d1d1f;
+    --muted: #6e6e73;
+    --bg: #ffffff;
+    --link: #0066cc;
+    --rule: #e5e5ea;
+    --code-bg: #f5f5f7;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+                 "Hiragino Sans GB", "Microsoft YaHei", Roboto, "Helvetica Neue",
+                 Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+  main {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 48px 24px 96px;
+  }
+  header.page-header {
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 16px;
+    margin-bottom: 32px;
+  }
+  h1 {
+    font-size: 32px;
+    line-height: 1.2;
+    margin: 0 0 8px;
+    letter-spacing: -0.01em;
+  }
+  h2 {
+    font-size: 22px;
+    line-height: 1.3;
+    margin: 40px 0 12px;
+    letter-spacing: -0.005em;
+  }
+  h3 {
+    font-size: 17px;
+    line-height: 1.4;
+    margin: 24px 0 8px;
+  }
+  p, li { color: var(--fg); }
+  .muted { color: var(--muted); font-size: 14px; }
+  ul, ol { padding-left: 22px; }
+  ul li, ol li { margin: 4px 0; }
+  a { color: var(--link); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  code {
+    background: var(--code-bg);
+    padding: 1px 6px;
+    border-radius: 4px;
+    font-size: 0.95em;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  }
+  hr {
+    border: none;
+    border-top: 1px solid var(--rule);
+    margin: 40px 0;
+  }
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 12px 0 8px;
+    font-size: 15px;
+  }
+  th, td {
+    text-align: left;
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--rule);
+    vertical-align: top;
+  }
+  th { background: var(--code-bg); font-weight: 600; }
+  .toc { font-size: 14px; color: var(--muted); }
+  .toc a { color: var(--muted); }
+  @media (max-width: 480px) {
+    main { padding: 32px 18px 64px; }
+    h1 { font-size: 26px; }
+    h2 { font-size: 19px; }
+  }
+</style>
+</head>
+<body>
+<main>
+
+<header class="page-header">
+  <h1>VBCC 隐私政策</h1>
+  <p class="muted">最后更新：2026 年 5 月 29 日</p>
+</header>
+
+<h2 id="intro">1. 引言</h2>
+<p>
+  VBCC（以下简称"本 App"或"我们"）是一款将 iPhone / iPad 作为 Mac 端遥控器与
+  语音输入端的 iOS 应用。本 App 通过用户所在的<strong>本地网络</strong>与同一
+  Wi-Fi 下的 Mac 建立点对点连接，并将本地语音识别得到的文字发送到该 Mac。
+</p>
+<p>
+  我们认真对待您的隐私。本隐私政策说明我们在您使用本 App 时如何收集、使用、存储、
+  共享和保护信息，以及您可以行使的权利。本政策符合 Apple App Store 审核要求、
+  《通用数据保护条例》（GDPR）、加州消费者隐私法案（CCPA）以及《中华人民共和国
+  个人信息保护法》（PIPL）等相关法律法规的基本要求。
+</p>
+<p>
+  使用本 App 即表示您已阅读、理解并同意本政策的内容。如果您不同意本政策的任何
+  条款，请停止使用本 App。
+</p>
+
+<h2 id="who-we-are">2. 我们是谁与适用范围</h2>
+<p>
+  本 App 由 VBCC 项目开发与发布。本政策适用于 VBCC iOS 客户端，<strong>不</strong>
+  适用于您在 Mac 端运行的、与本 App 配对的其他软件，也不适用于您通过本 App 间接触发的
+  第三方服务（例如系统级 App、网页或您 Mac 上的其他应用）。
+</p>
+
+<h2 id="information-we-collect">3. 我们收集的信息</h2>
+<p>
+  本 App 的设计原则是<strong>最小化收集</strong>。我们不在自有服务器上存储您的
+  语音、识别文本或聊天内容。具体收集情况如下：
+</p>
+
+<h3>A. 麦克风与语音数据</h3>
+<ul>
+  <li>
+    在您主动开启录音时，本 App 会调用 iOS 麦克风采集音频。
+    采集的音频<strong>仅用于设备本地的语音识别</strong>（基于 Apple
+    <em>Speech</em> 框架），生成对应的文字。
+  </li>
+  <li>
+    原始音频<strong>不会</strong>上传到我们的服务器，也不会在设备上长期保存。
+    一次识别会话结束后，对应的音频缓冲区会被释放。
+  </li>
+  <li>
+    根据 Apple 的实现，部分语音识别可能由 iOS 系统按需在设备端完成；如该次识别需要
+    Apple 的服务器协助，相关数据由 Apple 处理，受
+    <a href="https://www.apple.com/legal/privacy/" target="_blank" rel="noopener">Apple 隐私政策</a>约束，我们无法访问其内容。
+  </li>
+</ul>
+
+<h3>B. 本地网络与配对信息</h3>
+<ul>
+  <li>
+    本 App 通过 Bonjour 服务（<code>_vbcc._tcp</code>）在<strong>同一本地网络</strong>
+    内发现并连接您的 Mac。该过程不会将您的设备信息发送到互联网。
+  </li>
+  <li>
+    为了保持配对关系，本 App 会在设备本地存储以下信息：配对设备的名称 / 主机名 /
+    IP 地址或 Bonjour 名、配对令牌（用于鉴权）、以及您在 App 内的偏好设置。
+  </li>
+  <li>
+    上述信息存储在 iOS 提供的 <em>UserDefaults</em> / <em>Keychain</em> 等本地存储
+    中，不会同步到我们的服务器。
+  </li>
+</ul>
+
+<h3>C. 您发送给 Mac 的内容</h3>
+<ul>
+  <li>
+    您通过本 App 发送的文字、命令、热词等会通过本地网络的加密 / 直连通道发送到
+    您配对的 Mac。整个传输过程<strong>不经过</strong>我们的服务器。
+  </li>
+  <li>
+    本 App 会在设备上保留一份本地的消息历史（聊天记录），仅供您查看与回溯，
+    您可以在 App 内删除或清空这些记录。
+  </li>
+</ul>
+
+<h3>D. 诊断与崩溃信息</h3>
+<ul>
+  <li>
+    本 App 不内置第三方分析、统计或崩溃上报 SDK（例如 Google Analytics、
+    Firebase、Sentry、友盟、神策等）。
+  </li>
+  <li>
+    如果您在 iOS 系统设置中开启了"与开发者共享 App 分析数据"，Apple 会以
+    匿名、聚合的方式向我们提供 App 的崩溃和性能指标。该过程由 Apple 控制，
+    具体规则参见 Apple 的隐私说明。
+  </li>
+</ul>
+
+<h3>E. 我们<strong>不</strong>收集的信息</h3>
+<ul>
+  <li>我们不收集您的姓名、邮箱、手机号、地理位置、通讯录、相册、健康数据等。</li>
+  <li>我们不要求您注册账号，本 App 没有用户登录系统。</li>
+  <li>我们不投放定向广告，不向任何广告网络共享数据。</li>
+  <li>我们不出售您的个人信息。</li>
+</ul>
+
+<h2 id="how-we-use">4. 我们如何使用信息</h2>
+<p>本 App 仅在为提供功能所必需的范围内使用上述信息，目的包括：</p>
+<ul>
+  <li>在本地网络中发现、配对并连接您指定的 Mac；</li>
+  <li>将麦克风音频转写为文字，并发送到您配对的 Mac；</li>
+  <li>在本设备上展示与维护您的消息历史与偏好设置；</li>
+  <li>诊断并改进本 App 的稳定性与性能（基于 Apple 提供的匿名聚合数据）；</li>
+  <li>遵守适用的法律、法规和 App Store 规则。</li>
+</ul>
+
+<h2 id="legal-basis">5. 处理的法律依据（GDPR）</h2>
+<p>如您位于欧洲经济区（EEA）、英国或瑞士，我们处理您信息的法律依据为：</p>
+<ul>
+  <li><strong>合同必要性</strong>：为向您提供本 App 的核心功能；</li>
+  <li><strong>正当利益</strong>：为保障本 App 的稳定性与安全性；</li>
+  <li><strong>您的同意</strong>：例如使用麦克风、语音识别、本地网络访问等系统权限；</li>
+  <li><strong>法律义务</strong>：为遵守适用的法律法规。</li>
+</ul>
+
+<h2 id="storage">6. 数据存储与保留</h2>
+<table>
+  <thead>
+    <tr><th>类别</th><th>位置</th><th>保留期限</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>原始音频</td><td>仅在录音过程中位于设备内存</td><td>识别结束后立即释放</td></tr>
+    <tr><td>识别文本 / 消息历史</td><td>设备本地存储</td><td>由您自行删除或卸载 App 即清除</td></tr>
+    <tr><td>配对信息、偏好</td><td>设备本地（UserDefaults / Keychain）</td><td>解除配对或卸载 App 即清除</td></tr>
+  </tbody>
+</table>
+<p>
+  我们<strong>不在自有服务器上保留</strong>您的任何上述数据。
+</p>
+
+<h2 id="sharing">7. 信息共享与披露</h2>
+<p>我们不会出售、出租或以营销为目的共享您的信息。仅在以下有限情形下，可能涉及第三方：</p>
+<ul>
+  <li>
+    <strong>Apple Inc.</strong>：作为 iOS 平台与分发方（App Store、Speech 框架等），
+    其处理活动适用 <a href="https://www.apple.com/legal/privacy/" target="_blank" rel="noopener">Apple 隐私政策</a>。
+  </li>
+  <li>
+    <strong>您配对的 Mac</strong>：您主动发送的内容会传输到您配对的 Mac。
+    该 Mac 由您本人控制，不属于第三方共享场景。
+  </li>
+  <li>
+    <strong>法律要求</strong>：在适用法律明确要求时，我们可能依法配合监管或司法机构。
+    由于我们并不持有您的个人内容，此类配合的范围非常有限。
+  </li>
+</ul>
+
+<h2 id="security">8. 数据安全</h2>
+<ul>
+  <li>本 App 与 Mac 端之间的通信限定在<strong>本地网络</strong>内，并采用配对令牌进行身份校验。</li>
+  <li>敏感的本地数据（例如配对令牌）使用 iOS Keychain 存储。</li>
+  <li>我们未运营对外的用户数据后端，因此不存在中心化数据泄露风险。</li>
+  <li>尽管我们采取了合理的安全措施，但任何电子传输或存储方式都无法做到 100% 安全，请您也注意保护设备本身的安全（例如设置锁屏密码、保持系统更新）。</li>
+</ul>
+
+<h2 id="permissions">9. 系统权限说明</h2>
+<table>
+  <thead><tr><th>权限</th><th>用途</th><th>是否可选</th></tr></thead>
+  <tbody>
+    <tr>
+      <td>麦克风（Microphone）</td>
+      <td>录制您主动发起的语音输入</td>
+      <td>可在系统设置中关闭，关闭后语音功能不可用</td>
+    </tr>
+    <tr>
+      <td>语音识别（Speech Recognition）</td>
+      <td>将音频在本机转写为文字</td>
+      <td>可在系统设置中关闭，关闭后语音功能不可用</td>
+    </tr>
+    <tr>
+      <td>本地网络（Local Network）</td>
+      <td>发现并连接同网下的 Mac</td>
+      <td>必需，关闭后无法连接 Mac</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="children">10. 儿童隐私</h2>
+<p>
+  本 App 不面向 13 岁以下儿童（在某些司法管辖区为 16 岁以下）。我们不会有意收集
+  儿童的个人信息。如果您是父母或监护人，并发现您的孩子在未经您同意的情况下向
+  我们提供了个人信息，请通过下方联系方式与我们联系，我们会尽快删除相关信息。
+</p>
+
+<h2 id="rights">11. 您的权利</h2>
+<p>在适用法律允许的范围内，您可以行使以下权利：</p>
+<ul>
+  <li><strong>访问与查看</strong>：本 App 不在云端保存您的内容，您的所有数据都可在设备上直接查看。</li>
+  <li><strong>更正</strong>：您可以在 App 内直接修改您的偏好与配对信息。</li>
+  <li><strong>删除</strong>：您可以删除消息历史、解除配对，或卸载本 App 以删除全部本地数据。</li>
+  <li><strong>撤回同意</strong>：您可以随时在 iOS 系统设置中撤回麦克风、语音识别或本地网络等权限。</li>
+  <li><strong>反对 / 限制处理、数据可携带</strong>：在 GDPR 等法律适用的情况下，您可联系我们行使。</li>
+  <li><strong>投诉</strong>：您有权向当地数据保护监管机构投诉。</li>
+</ul>
+
+<h2 id="international">12. 跨境数据传输</h2>
+<p>
+  由于本 App 的核心数据流仅发生在您本人的设备与本地网络之间，我们通常不涉及跨境
+  传输您的个人信息。Apple 提供的平台服务（如 App Store、系统级语音识别）
+  可能涉及跨境处理，相关传输由 Apple 依其隐私政策与适用的标准合同条款处理。
+</p>
+
+<h2 id="third-party">13. 第三方链接与服务</h2>
+<p>
+  本 App 可能包含指向第三方网站或服务的链接（例如本隐私政策中的外部链接）。
+  我们对这些第三方网站或服务的内容与隐私实践不承担责任。请在向其提供个人信息前
+  阅读其隐私政策。
+</p>
+
+<h2 id="changes">14. 政策变更</h2>
+<p>
+  我们可能不时更新本政策。重大变更生效前，我们会通过 App 内提示、版本更新说明
+  或在本页面顶部更新"最后更新"日期等方式通知您。继续使用本 App 即视为您接受
+  更新后的政策。
+</p>
+
+<h2 id="contact">15. 联系我们</h2>
+<p>如对本政策、您的数据或权利行使有任何问题，请通过以下方式联系我们：</p>
+<ul>
+  <li>邮箱：<a href="imyiangyang@gmail.com">imyiangyang@gmail.com</a></li>
+  <li>项目主页：<a href="https://imyiangyang.top/app/vbcc" target="_blank" rel="noopener">https://imyiangyang.top/app/vbcc</a></li>
+</ul>
+
+<hr />
+<p class="muted">© 2026 VBCC. 保留所有权利。</p>
+
+</main>
+</body>
+</html>

@@ -1,0 +1,980 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0a0a0a">
+  <meta name="description" content="VBCC — VibeCoding Controller。把 iPhone 变成 Mac 的语音遥控器,说一句话,Mac 就替你打字。">
+  <meta property="og:title" content="VBCC — VibeCoding Controller">
+  <meta property="og:description" content="把 iPhone 变成 Mac 的语音遥控器,说一句话,Mac 就替你打字。">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://vbcc.app/">
+  <meta property="og:image" content="icon-256.png">
+  <title>VBCC — VibeCoding Controller</title>
+  <link rel="icon" type="image/png" sizes="64x64" href="favicon.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
+    rel="stylesheet">
+
+  <style>
+    :root {
+      --background: hsl(0 0% 3.9%);
+      --foreground: hsl(0 0% 98%);
+      --card: hsl(0 0% 9%);
+      --muted-foreground: hsl(240 5% 64.9%);
+      --border: hsl(0 0% 14.9%);
+      --ring: hsl(0 0% 60%);
+      --accent: hsl(0 0% 100%);
+      --radius: 0.5rem;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', system-ui, sans-serif;
+      background: var(--background);
+      color: var(--foreground);
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2rem 1.5rem;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      line-height: 1.5;
+    }
+
+    .mono {
+      font-family: 'JetBrains Mono', ui-monospace, 'SF Mono', 'Cascadia Code', monospace;
+    }
+
+    main {
+      max-width: 640px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      animation: fade-in 1s ease-out forwards;
+    }
+
+    @keyframes fade-in {
+      from { opacity: 0; transform: translateY(10px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ─── Top intro ─────────────────────────────── */
+    .intro {
+      width: 100%;
+      text-align: center;
+      padding: 3rem 0 2rem;
+    }
+
+    .intro-typewriter {
+      font-family: ui-monospace, 'SF Mono', Menlo, Monaco, monospace;
+      font-size: clamp(1.5rem, 4vw, 2.25rem);
+      font-weight: 500;
+      letter-spacing: -0.04em;
+      line-height: 1.2;
+      min-height: 2.4em;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--foreground);
+    }
+
+    .cursor {
+      display: inline-block;
+      width: 0.08em;
+      height: 1em;
+      background-color: var(--accent);
+      margin-left: 0.1em;
+      animation: blink 1s step-end infinite;
+      vertical-align: text-bottom;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50%      { opacity: 0; }
+    }
+
+    /* ─── App identity ───────────────────────────── */
+    .identity {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 2.5rem;
+    }
+
+    .app-icon {
+      width: 80px;
+      height: 80px;
+      border-radius: 22px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+      margin-bottom: 1rem;
+      display: block;
+      object-fit: cover;
+    }
+
+    .app-name {
+      font-weight: 600;
+      font-size: 1.25rem;
+      letter-spacing: 0.01em;
+      margin-bottom: 0.5rem;
+    }
+
+    .app-tagline {
+      font-size: 0.95rem;
+      color: var(--muted-foreground);
+      max-width: 28em;
+      line-height: 1.6;
+      text-align: center;
+    }
+
+    /* ─── CTA ───────────────────────────────────── */
+    .cta {
+      margin: 2rem 0 4rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .cta-buttons {
+      display: flex;
+      gap: 1.25rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      padding-bottom: 0.5rem;
+    }
+
+    /* iMessage-style bubble buttons — pill body + SVG tail */
+    .btn {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+      padding: 0.95rem 1.6rem;
+      border-radius: 999px;
+      font-family: inherit;
+      font-size: 0.95rem;
+      font-weight: 500;
+      letter-spacing: -0.01em;
+      cursor: pointer;
+      text-decoration: none;
+      white-space: nowrap;
+      border: none;
+      transition: transform 0.15s ease, filter 0.2s, box-shadow 0.2s;
+    }
+
+    .btn:active { transform: scale(0.97); }
+
+    /* SVG tail: sits below the pill, pokes downward from a bottom corner */
+    .btn-tail {
+      position: absolute;
+      bottom: -6px;
+      width: 16px;
+      height: 14px;
+      pointer-events: none;
+      display: block;
+    }
+
+    /* ─── Blue iMessage-sent bubble — tail on bottom right ─── */
+    .btn-primary {
+      background: #0A84FF;
+      color: #fff;
+      box-shadow: 0 6px 18px rgba(10, 132, 255, 0.25);
+    }
+
+    .btn-primary .btn-tail { right: 4px; fill: #0A84FF; }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      filter: brightness(1.08);
+      box-shadow: 0 10px 28px rgba(10, 132, 255, 0.4);
+    }
+
+    /* ─── Grey iMessage-received bubble — tail on bottom left ─── */
+    .btn-secondary {
+      background: #B5B5BA;
+      color: #1a1a1a;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
+    }
+
+    .btn-secondary .btn-tail { left: 4px; fill: #B5B5BA; transform: scaleX(-1); }
+
+    .btn-secondary:hover {
+      transform: translateY(-1px);
+      filter: brightness(1.05);
+      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.5);
+    }
+
+    .btn-platform {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      opacity: 0.7;
+      letter-spacing: 0.04em;
+    }
+
+    /* ─── Disabled App Store badge — coming soon ─── */
+    .appstore-coming {
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.35rem;
+      margin-top: 1.5rem;
+      cursor: not-allowed;
+      user-select: none;
+    }
+
+    .appstore-badge {
+      height: 44px;
+      width: auto;
+      filter: grayscale(1) brightness(0.85);
+      opacity: 0.45;
+      transition: opacity 0.2s, filter 0.2s;
+    }
+
+    .appstore-coming:hover .appstore-badge {
+      opacity: 0.6;
+      filter: grayscale(1) brightness(0.95);
+    }
+
+    .appstore-coming-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--muted-foreground);
+      letter-spacing: 0.04em;
+      opacity: 0.7;
+    }
+
+    .cta-note {
+      font-size: 0.75rem;
+      color: var(--muted-foreground);
+      letter-spacing: 0.02em;
+      text-align: center;
+      max-width: 32em;
+      line-height: 1.6;
+    }
+
+    /* ─── Sections ─────────────────────────────── */
+    section {
+      width: 100%;
+      padding: 3rem 0;
+      border-top: 1px solid var(--border);
+    }
+
+    .section-eyebrow {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted-foreground);
+      margin-bottom: 0.75rem;
+    }
+
+    .section-title {
+      font-size: clamp(1.5rem, 3.5vw, 2rem);
+      font-weight: 600;
+      letter-spacing: -0.03em;
+      line-height: 1.25;
+      margin-bottom: 2rem;
+    }
+
+    /* ─── What is VBCC explainer ───────────────── */
+    .explainer p {
+      font-size: 1rem;
+      color: var(--muted-foreground);
+      line-height: 1.75;
+      margin-bottom: 1rem;
+    }
+
+    .explainer strong {
+      color: var(--foreground);
+      font-weight: 500;
+    }
+
+    .acronym {
+      display: inline-flex;
+      gap: 0.4em;
+      flex-wrap: wrap;
+      align-items: baseline;
+      margin: 1rem 0;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.95rem;
+    }
+
+    .acronym .letter {
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    .acronym .word {
+      color: var(--muted-foreground);
+    }
+
+    /* ─── Feature list ─────────────────────────── */
+    .features {
+      display: grid;
+      gap: 0.75rem;
+    }
+
+    .feature {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.25rem 1.25rem;
+      transition: border-color 0.2s, background-color 0.2s;
+    }
+
+    .feature:hover {
+      border-color: hsl(0 0% 22%);
+      background: hsl(0 0% 11%);
+    }
+
+    .feature-title {
+      font-size: 1rem;
+      font-weight: 500;
+      margin-bottom: 0.35rem;
+      letter-spacing: -0.01em;
+    }
+
+    .feature-desc {
+      font-size: 0.875rem;
+      color: var(--muted-foreground);
+      line-height: 1.6;
+    }
+
+    /* ─── FAQ ──────────────────────────────────── */
+    .faq-item {
+      padding: 1.5rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .faq-item:last-child {
+      border-bottom: none;
+    }
+
+    .faq-q {
+      font-size: 1rem;
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+      letter-spacing: -0.01em;
+    }
+
+    .faq-a {
+      font-size: 0.9rem;
+      color: var(--muted-foreground);
+      line-height: 1.7;
+    }
+
+    .faq-a a {
+      color: var(--foreground);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      text-decoration-color: hsl(0 0% 30%);
+      transition: text-decoration-color 0.2s;
+    }
+
+    .faq-a a:hover {
+      text-decoration-color: var(--foreground);
+    }
+
+    /* ─── Footer ───────────────────────────────── */
+    footer {
+      margin-top: 3rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border);
+      width: 100%;
+      max-width: 640px;
+      font-size: 0.75rem;
+      color: var(--muted-foreground);
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.85rem;
+      opacity: 0.6;
+      transition: opacity 0.2s;
+    }
+
+    footer:hover,
+    footer:has(.lang-dropdown.open) {
+      opacity: 1;
+    }
+
+    footer a {
+      color: inherit;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      text-decoration-color: hsl(0 0% 25%);
+      transition: text-decoration-color 0.2s, opacity 0.2s;
+    }
+
+    footer a:hover {
+      text-decoration-color: var(--foreground);
+    }
+
+    .sep {
+      opacity: 0.4;
+      user-select: none;
+      pointer-events: none;
+    }
+
+    .lang-switcher {
+      position: relative;
+      margin-left: auto;
+    }
+
+    .lang-btn {
+      background: transparent;
+      border: none;
+      color: inherit;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      cursor: pointer;
+      padding: 0;
+      transition: opacity 0.2s;
+    }
+
+    .lang-btn:hover {
+      opacity: 1;
+    }
+
+    .lang-dropdown {
+      display: none;
+      position: absolute;
+      bottom: 100%;
+      right: 0;
+      margin-bottom: 0.5rem;
+      background: #222;
+      border: 1px solid #444;
+      border-radius: var(--radius);
+      padding: 0.25rem 0;
+      min-width: 120px;
+      z-index: 50;
+      box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.8);
+    }
+
+    .lang-dropdown.open { display: block; }
+
+    .lang-option {
+      display: block;
+      width: 100%;
+      background: transparent;
+      border: none;
+      color: var(--muted-foreground);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      padding: 0.4rem 0.75rem;
+      text-align: left;
+      cursor: pointer;
+      transition: background-color 0.15s, color 0.15s;
+    }
+
+    .lang-option:hover {
+      background: #333;
+      color: var(--foreground);
+    }
+
+    .lang-option.active {
+      color: var(--foreground);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+
+    @media (max-width: 480px) {
+      body { padding: 1.5rem 1rem; }
+      .intro { padding: 2rem 0 1.5rem; }
+      section { padding: 2.5rem 0; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <main>
+    <!-- ─── Intro ─────────────────────────────────── -->
+    <div class="intro">
+      <h1 class="intro-typewriter"><span id="typewriter"></span><span class="cursor"></span></h1>
+    </div>
+
+    <!-- ─── App identity ───────────────────────────── -->
+    <div class="identity">
+      <picture>
+        <source srcset="icon-256.webp" type="image/webp">
+        <img class="app-icon" src="icon-256.png" alt="VBCC app icon"
+             width="80" height="80" decoding="async" fetchpriority="high">
+      </picture>
+      <div class="app-name">VBCC</div>
+      <p class="app-tagline" data-i18n="tagline"></p>
+    </div>
+
+    <!-- ─── CTA ───────────────────────────────────── -->
+    <div class="cta">
+      <div class="cta-buttons">
+        <a class="btn btn-secondary" href="https://imyiangyang.top/downloads/vbcc-mac-v1.0(2).dmg">
+          <span data-i18n="cta_mac"></span>
+          <span class="btn-platform">macOS</span>
+          <svg class="btn-tail" viewBox="0 0 16 14" aria-hidden="true">
+            <path d="M0 0 Q 8 0 12 6 Q 14 10 16 12 Q 10 13 4 8 Q 0 4 0 0 Z"/>
+          </svg>
+        </a>
+        <a class="btn btn-primary" href="https://testflight.apple.com/join/xTH4fqm7"
+           target="_blank" rel="noopener">
+          <span data-i18n="cta_testflight"></span>
+          <span class="btn-platform">iPhone</span>
+          <svg class="btn-tail" viewBox="0 0 16 14" aria-hidden="true">
+            <path d="M0 0 Q 8 0 12 6 Q 14 10 16 12 Q 10 13 4 8 Q 0 4 0 0 Z"/>
+          </svg>
+        </a>
+      </div>
+      <div class="appstore-coming" aria-disabled="true">
+        <img class="appstore-badge"
+             src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg"
+             alt="Download on the App Store — coming soon">
+        <span class="appstore-coming-label mono" data-i18n="appstore_coming">即将上架</span>
+      </div>
+    </div>
+
+    <!-- ─── What is VBCC ─────────────────────────── -->
+    <section id="about" class="explainer">
+      <div class="section-eyebrow mono">// what is vbcc</div>
+      <h2 class="section-title" data-i18n="about_title"></h2>
+      <div class="acronym mono" aria-hidden="true">
+        <span><span class="letter">V</span><span class="word">i</span><span class="letter">B</span><span class="word">e</span></span>
+        <span><span class="letter">C</span><span class="word">oding</span></span>
+        <span><span class="letter">C</span><span class="word">ontroller</span></span>
+      </div>
+      <p data-i18n="about_p1"></p>
+      <p data-i18n="about_p2"></p>
+    </section>
+
+    <!-- ─── Features ──────────────────────────────── -->
+    <section id="features">
+      <div class="section-eyebrow mono">// features</div>
+      <h2 class="section-title" data-i18n="features_title"></h2>
+      <div class="features">
+
+        <div class="feature">
+          <div class="feature-title" data-i18n="f1_title"></div>
+          <div class="feature-desc" data-i18n="f1_desc"></div>
+        </div>
+
+        <div class="feature">
+          <div class="feature-title" data-i18n="f2_title"></div>
+          <div class="feature-desc" data-i18n="f2_desc"></div>
+        </div>
+
+        <div class="feature">
+          <div class="feature-title" data-i18n="f3_title"></div>
+          <div class="feature-desc" data-i18n="f3_desc"></div>
+        </div>
+
+        <div class="feature">
+          <div class="feature-title" data-i18n="f4_title"></div>
+          <div class="feature-desc" data-i18n="f4_desc"></div>
+        </div>
+
+        <div class="feature">
+          <div class="feature-title" data-i18n="f5_title"></div>
+          <div class="feature-desc" data-i18n="f5_desc"></div>
+        </div>
+
+        <div class="feature">
+          <div class="feature-title" data-i18n="f6_title"></div>
+          <div class="feature-desc" data-i18n="f6_desc"></div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ─── FAQ ──────────────────────────────────── -->
+    <section id="faq">
+      <div class="section-eyebrow mono">// faq</div>
+      <h2 class="section-title" data-i18n="faq_title"></h2>
+
+      <div class="faq-item">
+        <div class="faq-q" data-i18n="faq_q1"></div>
+        <div class="faq-a" data-i18n="faq_a1"></div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" data-i18n="faq_q2"></div>
+        <div class="faq-a" data-i18n="faq_a2"></div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" data-i18n="faq_q3"></div>
+        <div class="faq-a" data-i18n="faq_a3"></div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" data-i18n="faq_q4"></div>
+        <div class="faq-a" data-i18n="faq_a4"></div>
+      </div>
+
+    </section>
+  </main>
+
+  <footer>
+    <span class="mono">© 2026 VBCC</span>
+    <span class="sep mono" aria-hidden="true">·</span>
+    <a href="#" class="mono" data-i18n="tutorials_link" target="_blank" rel="noopener">使用方法</a>
+    <span class="sep mono" aria-hidden="true">·</span>
+    <a href="privacy.html" class="mono" data-i18n="privacy">隐私政策</a>
+    <span class="sep mono" aria-hidden="true">·</span>
+    <a href="mailto:imyiangyang@gmail.com" class="mono">imyiangyang@gmail.com</a>
+    <div class="lang-switcher">
+      <button class="lang-btn mono" id="lang-btn" aria-haspopup="true" aria-expanded="false"></button>
+      <div class="lang-dropdown" id="lang-dropdown" role="menu"></div>
+    </div>
+  </footer>
+
+  <script>
+    /* ─── i18n ──────────────────────────────────── */
+    const i18n = {
+      "zh-Hans": {
+        page_title: "VBCC — VibeCoding Controller",
+        typewriter: ["iPhone =", "VibeCoding 遥控器"],
+        tagline: "语音识别 & 按键绑定",
+        cta_testflight: "加入 TestFlight",
+        cta_mac: "下载桌面端",
+        appstore_coming: "App Store 即将上架",
+        about_title: "VibeCoding Controller",
+        about_p1: "<strong>VBCC</strong> 将手边的 iPhone 变成 VibeCoding 的遥控器，语音转文字&按键绑定都在 iPhone 完成。",
+        about_p2: "局域网直连 · 无需登录账号 · 数据本地存储。",
+        
+        features_title: "VBCC 能做什么",
+        f1_title: "语音识别:直接发送到 Mac",
+        f1_desc: "iPhone 语音识别, 文字实时发送 Mac 光标处，和键盘输入有什么不同？",
+        
+        f2_title: "远程键盘:修饰键全开",
+        f2_desc: "自定义按键支持单键和 ⌘/⌥/⇧ 等组合键 <sup>pro</sup>, iPhone 变快捷键面板。",
+        
+        f3_title: "快捷指令:一键发送",
+        f3_desc: "把常说的——「运行测试」「提交并推送」绑定快捷指令，一键发送。",
+        
+        f4_title: "完整消息历史",
+        f4_desc: "发送过的内容本地存储, 单击复制 / 双击重发。",
+
+        f5_title: "iCloud 同步 <sup>pro</sup>",
+        f5_desc: "完整消息历史、配对凭证、L/R 按键配置、快捷指令、热词，可通过 iCloud 同步。",
+        
+        f6_title: "专业热词 <sup>pro</sup>",
+        f6_desc: "添加专有名词、产品名、人名、行业术语, 识别准确率立刻拔高。",
+        
+        faq_title: "常见问题",
+        faq_q1: "数据安全吗?",
+        faq_a1: "语音识别完全在 iPhone 本地完成, 或者您自行配置第三方语音转写接口; 识别后的文字通过同一局域网/AWDL直接发到 Mac, 不经过任何第三方服务器。",
+        faq_q2: "需要联网吗?",
+        faq_a2: "需要 iPhone 和 Mac 在同一 Wi-Fi 下; 开启 P2P/AWDL 模式时, 即使没 Wi-Fi, 两台 Apple 设备也能直接互连。当您配置并使用第三方语音转写接口时才需要网络连接。",
+        faq_q3: "VBCC收费吗?",
+        faq_a3: "有人说勇者是需要收报酬的，但 VBCC 几乎所有功能都是免费的，pro订阅更多意味着认可和支持。",
+        faq_q4: "有问题/建议如何联系?",
+        faq_a4: '直接发邮件到 <a href="mailto:imyiangyang@gmail.com">imyiangyang@gmail.com</a>, 我会认真看，并尽可能一一回复。',
+        
+        privacy: "隐私政策",
+        tutorials_link: "使用方法"
+      },
+      "zh-Hant": {
+        page_title: "VBCC — VibeCoding Controller",
+        typewriter: ["iPhone =", "VibeCoding 遙控器"],
+        tagline: "語音辨識 & 按鍵綁定",
+        cta_testflight: "加入 TestFlight",
+        cta_mac: "下載桌面端",
+        appstore_coming: "App Store 即將上架",
+        about_title: "VibeCoding Controller",
+        about_p1: "<strong>VBCC</strong> 將手邊的 iPhone 變成 VibeCoding 的遙控器，語音轉文字&按鍵綁定都在 iPhone 完成。",
+        about_p2: "區域網路直連 · 無需登入帳號 · 資料本地儲存。",
+
+        features_title: "VBCC 能做什麼",
+        f1_title: "語音辨識：直接送到 Mac",
+        f1_desc: "iPhone 語音辨識，文字即時送到 Mac 游標處，和鍵盤輸入有什麼不同？",
+
+        f2_title: "遠端鍵盤：修飾鍵全開",
+        f2_desc: "自訂按鍵支援單鍵和 ⌘/⌥/⇧ 等組合鍵 <sup>pro</sup>，iPhone 變快捷鍵面板。",
+
+        f3_title: "快捷指令：一鍵發送",
+        f3_desc: "把常說的——「執行測試」「提交並推送」綁定快捷指令，一鍵發送。",
+
+        f4_title: "完整訊息歷史",
+        f4_desc: "送出過的內容本地儲存，單擊複製 / 雙擊重發。",
+
+        f5_title: "iCloud 同步 <sup>pro</sup>",
+        f5_desc: "完整訊息歷史、配對憑證、L/R 按鍵設定、快捷指令、熱詞，可透過 iCloud 同步。",
+
+        f6_title: "專業熱詞 <sup>pro</sup>",
+        f6_desc: "加入專有名詞、產品名、人名、行業術語，辨識準確率立刻拉高。",
+
+        faq_title: "常見問題",
+        faq_q1: "資料安全嗎？",
+        faq_a1: "語音辨識完全在 iPhone 本地完成，或者您自行設定第三方語音轉寫介面；辨識後的文字透過同一區域網路/AWDL 直接送到 Mac，不經過任何第三方伺服器。",
+        faq_q2: "需要連網嗎？",
+        faq_a2: "需要 iPhone 和 Mac 在同一 Wi-Fi 下；開啟 P2P/AWDL 模式時，即使沒 Wi-Fi，兩台 Apple 裝置也能直接互連。當您設定並使用第三方語音轉寫介面時才需要網路連線。",
+        faq_q3: "VBCC 收費嗎？",
+        faq_a3: "有人說勇者是需要收報酬的，但 VBCC 幾乎所有功能都是免費的，pro 訂閱更多意味著認可與支持。",
+        faq_q4: "有問題／建議如何聯絡？",
+        faq_a4: '直接寄信到 <a href="mailto:imyiangyang@gmail.com">imyiangyang@gmail.com</a>，我會認真看，並盡可能一一回覆。',
+
+        privacy: "隱私權政策",
+        tutorials_link: "使用方法"
+      },
+      "en": {
+        page_title: "VBCC — VibeCoding Controller",
+        typewriter: ["iPhone =", "VibeCoding remote"],
+        tagline: "Speech recognition & key bindings",
+        cta_testflight: "Join TestFlight",
+        cta_mac: "Download for Mac",
+        appstore_coming: "Coming soon to the App Store",
+        about_title: "VibeCoding Controller",
+        about_p1: "<strong>VBCC</strong> turns the iPhone in your hand into a remote for vibe coding — speech-to-text and key bindings all happen on the iPhone.",
+        about_p2: "Local network only · No account needed · Data stays on your devices.",
+
+        features_title: "What VBCC does",
+        f1_title: "Speech to text — sent straight to your Mac",
+        f1_desc: "iPhone recognizes your voice and the text lands at your Mac's cursor in real time. How is it different from typing on a keyboard?",
+
+        f2_title: "Remote keyboard — full modifier support",
+        f2_desc: "Custom buttons support single keys and ⌘/⌥/⇧ combinations <sup>pro</sup>. The iPhone becomes a shortcut panel.",
+
+        f3_title: "Quick commands — one-tap send",
+        f3_desc: "Bind the things you say all the time — \"run tests\", \"commit and push\" — to quick commands and fire them with one tap.",
+
+        f4_title: "Full message history",
+        f4_desc: "Everything you send is kept locally. Tap to copy, double-tap to resend.",
+
+        f5_title: "iCloud sync <sup>pro</sup>",
+        f5_desc: "Full message history, pairing credentials, L/R bindings, quick commands, hotwords — all syncable via iCloud.",
+
+        f6_title: "Pro hotwords <sup>pro</sup>",
+        f6_desc: "Add product names, jargon, personal names, industry terms — recognition accuracy goes up immediately.",
+
+        faq_title: "FAQ",
+        faq_q1: "Is my data safe?",
+        faq_a1: "Speech recognition runs entirely on-device on the iPhone — or with a third-party transcription API you configure yourself. The recognized text goes over the same local network / AWDL directly to your Mac, never through any third-party server.",
+        faq_q2: "Does it need internet?",
+        faq_a2: "iPhone and Mac need to be on the same Wi-Fi; with P2P/AWDL mode on, the two Apple devices can connect directly even without Wi-Fi. Internet is only required if you've configured a third-party transcription API.",
+        faq_q3: "Does VBCC cost money?",
+        faq_a3: "Some say heroes deserve a reward, but nearly all of VBCC is free. A Pro subscription is more about showing recognition and support.",
+        faq_q4: "How do I report bugs or send feedback?",
+        faq_a4: 'Email me directly at <a href="mailto:imyiangyang@gmail.com">imyiangyang@gmail.com</a> — I read every message and reply as best I can.',
+
+        privacy: "Privacy Policy",
+        tutorials_link: "Tutorials"
+      },
+      "ja": {
+        page_title: "VBCC — VibeCoding Controller",
+        typewriter: ["iPhone =", "VibeCoding リモコン"],
+        tagline: "音声認識 & キーバインディング",
+        cta_testflight: "TestFlight に参加",
+        cta_mac: "Mac 版をダウンロード",
+        appstore_coming: "App Store 近日公開",
+        about_title: "VibeCoding Controller",
+        about_p1: "<strong>VBCC</strong> は手元の iPhone を VibeCoding のリモコンに変えます。音声入力もキーバインディングもすべて iPhone で完結します。",
+        about_p2: "ローカルネットワーク直結 · アカウント不要 · データはローカルに保存。",
+
+        features_title: "VBCC でできること",
+        f1_title: "音声認識:Mac に直接送信",
+        f1_desc: "iPhone が音声を認識し、Mac のカーソル位置にリアルタイムで送信。キーボード入力と何が違いますか?",
+
+        f2_title: "リモートキーボード:修飾キーすべて対応",
+        f2_desc: "カスタムボタンは単キーと ⌘/⌥/⇧ などの組み合わせに対応 <sup>pro</sup>。iPhone がショートカットパッドになります。",
+
+        f3_title: "クイックコマンド:ワンタップ送信",
+        f3_desc: "「テスト実行」「コミットしてプッシュ」など、よく言う言葉をクイックコマンドに割り当ててワンタップで送信。",
+
+        f4_title: "完全なメッセージ履歴",
+        f4_desc: "送信した内容はローカルに保存。タップでコピー / ダブルタップで再送信。",
+
+        f5_title: "iCloud 同期 <sup>pro</sup>",
+        f5_desc: "完全なメッセージ履歴、ペアリング情報、L/R キー設定、クイックコマンド、ホットワード — すべて iCloud で同期可能。",
+
+        f6_title: "プロホットワード <sup>pro</sup>",
+        f6_desc: "固有名詞、製品名、人名、業界用語を追加すると、認識精度が一気に向上します。",
+
+        faq_title: "よくある質問",
+        faq_q1: "データは安全ですか?",
+        faq_a1: "音声認識は iPhone 上で完結します。あるいはご自身でサードパーティの音声書き起こし API を設定することも可能です。認識結果は同じローカルネットワーク/AWDL 経由で直接 Mac に送られ、第三者のサーバーは経由しません。",
+        faq_q2: "インターネット接続は必要ですか?",
+        faq_a2: "iPhone と Mac が同じ Wi-Fi にある必要があります。P2P/AWDL モードを有効にすれば、Wi-Fi がなくても 2 台の Apple デバイスは直接接続できます。サードパーティの音声書き起こし API を設定して使う場合のみ、ネット接続が必要です。",
+        faq_q3: "VBCC は有料ですか?",
+        faq_a3: "勇者には報酬が必要だと言う人もいますが、VBCC のほぼすべての機能は無料です。Pro サブスクリプションは、応援と支持の意味合いが強いです。",
+        faq_q4: "問題報告や要望はどう送りますか?",
+        faq_a4: '直接メールしてください: <a href="mailto:imyiangyang@gmail.com">imyiangyang@gmail.com</a>。すべて目を通し、できる限り返信します。',
+
+        privacy: "プライバシーポリシー",
+        tutorials_link: "使い方"
+      },
+      "ko": {
+        page_title: "VBCC — VibeCoding Controller",
+        typewriter: ["iPhone =", "VibeCoding 리모컨"],
+        tagline: "음성 인식 & 키 바인딩",
+        cta_testflight: "TestFlight 참여",
+        cta_mac: "Mac 버전 다운로드",
+        appstore_coming: "App Store 출시 예정",
+        about_title: "VibeCoding Controller",
+        about_p1: "<strong>VBCC</strong>는 손에 든 iPhone을 VibeCoding 리모컨으로 바꿉니다. 음성-텍스트 변환과 키 바인딩이 모두 iPhone에서 처리됩니다.",
+        about_p2: "로컬 네트워크 직접 연결 · 계정 불필요 · 데이터는 로컬에 저장.",
+
+        features_title: "VBCC가 할 수 있는 일",
+        f1_title: "음성 인식: Mac으로 바로 전송",
+        f1_desc: "iPhone이 음성을 인식해 Mac의 커서 위치로 실시간 전송. 키보드 입력과 무엇이 다른가요?",
+
+        f2_title: "원격 키보드: 수정자키 전부 지원",
+        f2_desc: "사용자 정의 버튼은 단일 키와 ⌘/⌥/⇧ 등 조합 키를 지원 <sup>pro</sup>. iPhone이 단축키 패널이 됩니다.",
+
+        f3_title: "빠른 명령: 원탭 전송",
+        f3_desc: "「테스트 실행」, 「커밋 후 푸시」처럼 자주 말하는 것을 빠른 명령으로 바인딩해 원탭으로 전송합니다.",
+
+        f4_title: "전체 메시지 기록",
+        f4_desc: "보낸 내용은 로컬에 저장됩니다. 탭으로 복사, 더블탭으로 재전송.",
+
+        f5_title: "iCloud 동기화 <sup>pro</sup>",
+        f5_desc: "전체 메시지 기록, 페어링 자격 증명, L/R 버튼 설정, 빠른 명령, 핫워드를 모두 iCloud로 동기화할 수 있습니다.",
+
+        f6_title: "프로 핫워드 <sup>pro</sup>",
+        f6_desc: "고유명사, 제품명, 인명, 업계 용어를 추가하면 인식 정확도가 즉시 올라갑니다.",
+
+        faq_title: "자주 묻는 질문",
+        faq_q1: "데이터는 안전한가요?",
+        faq_a1: "음성 인식은 iPhone에서 완전히 처리되거나, 직접 설정한 제3자 음성 전사 API에서 처리됩니다. 인식된 텍스트는 동일한 로컬 네트워크/AWDL을 통해 Mac으로 직접 전송되며, 어떤 제3자 서버도 거치지 않습니다.",
+        faq_q2: "인터넷이 필요한가요?",
+        faq_a2: "iPhone과 Mac이 같은 Wi-Fi에 있어야 합니다. P2P/AWDL 모드를 켜면 Wi-Fi가 없어도 두 Apple 기기가 직접 연결됩니다. 제3자 음성 전사 API를 설정해 사용할 때만 네트워크 연결이 필요합니다.",
+        faq_q3: "VBCC는 유료인가요?",
+        faq_a3: "용자는 보상을 받아야 한다는 말도 있지만, VBCC의 거의 모든 기능은 무료입니다. Pro 구독은 인정과 지지의 의미가 더 큽니다.",
+        faq_q4: "문제 보고나 제안은 어떻게 보내나요?",
+        faq_a4: '직접 이메일을 보내주세요: <a href="mailto:imyiangyang@gmail.com">imyiangyang@gmail.com</a>. 모두 읽고 가능한 한 답장드립니다.',
+
+        privacy: "개인정보 처리방침",
+        tutorials_link: "사용 방법"
+      }
+    };
+
+    const langNames = {
+      "zh-Hans": "简体中文",
+      "zh-Hant": "繁體中文",
+      "en": "English",
+      "ja": "日本語",
+      "ko": "한국어"
+    };
+
+    /* ─── Apply language ───────────────────────── */
+    function applyLang(lang) {
+      const t = i18n[lang];
+      if (!t) return;
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (t[key]) el.innerHTML = t[key];
+      });
+      document.querySelectorAll('.lang-option').forEach(opt => {
+        opt.classList.toggle('active', opt.getAttribute('data-lang') === lang);
+      });
+      const btn = document.getElementById('lang-btn');
+      if (btn) btn.textContent = langNames[lang] + ' ▾';
+      document.documentElement.lang = lang;
+      if (t.page_title) document.title = t.page_title;
+      startTypewriter(t.typewriter);
+    }
+
+    /* ─── Detect language ──────────────────────── */
+    function detectLang() {
+      const hashMatch = location.hash.match(/lang=([a-zA-Z-]+)/);
+      if (hashMatch && i18n[hashMatch[1]]) return hashMatch[1];
+      try {
+        const stored = localStorage.getItem('vbcc_lang');
+        if (stored && i18n[stored]) return stored;
+      } catch (e) {}
+      const nav = (navigator.language || 'en').toLowerCase();
+      if (nav.startsWith('zh')) {
+        if (nav.includes('hant') || nav.includes('tw') || nav.includes('hk') || nav.includes('mo')) return 'zh-Hant';
+        return 'zh-Hans';
+      }
+      if (nav.startsWith('ja')) return 'ja';
+      if (nav.startsWith('ko')) return 'ko';
+      return 'en';
+    }
+
+    /* ─── Typewriter ───────────────────────────── */
+    let typewriterToken = 0;
+    async function startTypewriter(words) {
+      const el = document.getElementById('typewriter');
+      if (!el || !words || !words.length) return;
+      const myToken = ++typewriterToken;
+      el.textContent = '';
+      const sleep = ms => new Promise(r => setTimeout(r, ms));
+      await sleep(400);
+      // Type word 1
+      const w1 = words[0];
+      for (let i = 0; i <= w1.length; i++) {
+        if (myToken !== typewriterToken) return;
+        el.textContent = w1.slice(0, i);
+        await sleep(80);
+      }
+      await sleep(900);
+      if (words.length < 2) return;
+      // Delete word 1
+      for (let i = w1.length; i >= 0; i--) {
+        if (myToken !== typewriterToken) return;
+        el.textContent = w1.slice(0, i);
+        await sleep(50);
+      }
+      await sleep(300);
+      // Type word 2
+      const w2 = words[1];
+      for (let i = 0; i <= w2.length; i++) {
+        if (myToken !== typewriterToken) return;
+        el.textContent = w2.slice(0, i);
+        await sleep(80);
+      }
+    }
+
+    /* ─── Build language dropdown ──────────────── */
+    (function () {
+      const dropdown = document.getElementById('lang-dropdown');
+      const toggleBtn = document.getElementById('lang-btn');
+      Object.keys(langNames).forEach(code => {
+        const opt = document.createElement('button');
+        opt.className = 'lang-option mono';
+        opt.setAttribute('data-lang', code);
+        opt.setAttribute('role', 'menuitem');
+        opt.textContent = langNames[code];
+        opt.addEventListener('click', () => {
+          location.hash = 'lang=' + code;
+          try { localStorage.setItem('vbcc_lang', code); } catch (e) {}
+          applyLang(code);
+          dropdown.classList.remove('open');
+          toggleBtn.setAttribute('aria-expanded', 'false');
+        });
+        dropdown.appendChild(opt);
+      });
+      toggleBtn.addEventListener('click', e => {
+        e.stopPropagation();
+        const isOpen = dropdown.classList.toggle('open');
+        toggleBtn.setAttribute('aria-expanded', String(isOpen));
+      });
+      document.addEventListener('click', () => {
+        dropdown.classList.remove('open');
+        toggleBtn.setAttribute('aria-expanded', 'false');
+      });
+    })();
+
+    /* ─── Init ─────────────────────────────────── */
+    applyLang(detectLang());
+    window.addEventListener('hashchange', () => applyLang(detectLang()));
+  </script>
+
+</body>
+
+</html>
