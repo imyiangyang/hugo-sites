@@ -166,44 +166,17 @@
 
     .btn:active { transform: scale(0.97); }
 
-    /* SVG tail: sits below the pill, pokes downward from a bottom corner */
-    .btn-tail {
-      position: absolute;
-      bottom: -6px;
-      width: 16px;
-      height: 14px;
-      pointer-events: none;
-      display: block;
-    }
-
-    /* ─── Blue iMessage-sent bubble — tail on bottom right ─── */
+    /* ─── Primary button ────────────────────────── */
     .btn-primary {
       background: #0A84FF;
       color: #fff;
       box-shadow: 0 6px 18px rgba(10, 132, 255, 0.25);
     }
 
-    .btn-primary .btn-tail { right: 4px; fill: #0A84FF; }
-
     .btn-primary:hover {
       transform: translateY(-1px);
       filter: brightness(1.08);
       box-shadow: 0 10px 28px rgba(10, 132, 255, 0.4);
-    }
-
-    /* ─── Grey iMessage-received bubble — tail on bottom left ─── */
-    .btn-secondary {
-      background: #B5B5BA;
-      color: #1a1a1a;
-      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
-    }
-
-    .btn-secondary .btn-tail { left: 4px; fill: #B5B5BA; transform: scaleX(-1); }
-
-    .btn-secondary:hover {
-      transform: translateY(-1px);
-      filter: brightness(1.05);
-      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.5);
     }
 
     .btn-platform {
@@ -523,12 +496,9 @@
              alt="Download on the App Store">
         <span class="appstore-badge-label mono" data-i18n="appstore_badge"></span>
       </a>
-      <a class="btn btn-secondary" href="https://imyiangyang.top/downloads/vbcc-mac-v1.0-3.dmg">
+      <a class="btn btn-primary" href="https://imyiangyang.top/downloads/vbcc-mac-v1.0-3.dmg">
         <span data-i18n="cta_mac"></span>
         <span class="btn-platform">macOS</span>
-        <svg class="btn-tail" viewBox="0 0 16 14" aria-hidden="true">
-          <path d="M0 0 Q 8 0 12 6 Q 14 10 16 12 Q 10 13 4 8 Q 0 4 0 0 Z"/>
-        </svg>
       </a>
       <p class="cta-note" data-i18n="cta_note"></p>
     </div>
