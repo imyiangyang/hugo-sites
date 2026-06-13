@@ -221,6 +221,38 @@
       letter-spacing: 0.04em;
     }
 
+    /* ─── Disabled App Store badge — coming soon ─── */
+    .appstore-coming {
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.35rem;
+      margin-top: 1.5rem;
+      cursor: not-allowed;
+      user-select: none;
+    }
+
+    .appstore-badge {
+      height: 44px;
+      width: auto;
+      filter: grayscale(1) brightness(0.85);
+      opacity: 0.45;
+      transition: opacity 0.2s, filter 0.2s;
+    }
+
+    .appstore-coming:hover .appstore-badge {
+      opacity: 0.6;
+      filter: grayscale(1) brightness(0.95);
+    }
+
+    .appstore-coming-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--muted-foreground);
+      letter-spacing: 0.04em;
+      opacity: 0.7;
+    }
+
     .cta-note {
       font-size: 0.75rem;
       color: var(--muted-foreground);
@@ -492,21 +524,27 @@
     <!-- ─── CTA ───────────────────────────────────── -->
     <div class="cta">
       <div class="cta-buttons">
-        <a class="btn btn-secondary" href="https://imyiangyang.top/downloads/vbcc-mac-v1.0-7.dmg">
+        <a class="btn btn-secondary" href="https://imyiangyang.top/downloads/vbcc-mac-v1.0-3.dmg">
           <span data-i18n="cta_mac"></span>
-          <span class="btn-platform">macOS v1.0.7</span>
+          <span class="btn-platform">macOS</span>
           <svg class="btn-tail" viewBox="0 0 16 14" aria-hidden="true">
             <path d="M0 0 Q 8 0 12 6 Q 14 10 16 12 Q 10 13 4 8 Q 0 4 0 0 Z"/>
           </svg>
         </a>
-        <a class="btn btn-primary" href="https://apps.apple.com/app/id6772499540"
+        <a class="btn btn-primary" href="https://testflight.apple.com/join/xTH4fqm7"
            target="_blank" rel="noopener">
-          <span data-i18n="cta_appstore"></span>
+          <span data-i18n="cta_testflight"></span>
           <span class="btn-platform">iPhone</span>
           <svg class="btn-tail" viewBox="0 0 16 14" aria-hidden="true">
             <path d="M0 0 Q 8 0 12 6 Q 14 10 16 12 Q 10 13 4 8 Q 0 4 0 0 Z"/>
           </svg>
         </a>
+      </div>
+      <div class="appstore-coming" aria-disabled="true">
+        <img class="appstore-badge"
+             src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg"
+             alt="Download on the App Store — coming soon">
+        <span class="appstore-coming-label mono" data-i18n="appstore_coming">即将上架</span>
       </div>
     </div>
 
@@ -595,8 +633,6 @@
     <span class="sep mono" aria-hidden="true">·</span>
     <a href="privacy.html" class="mono" data-i18n="privacy">隐私政策</a>
     <span class="sep mono" aria-hidden="true">·</span>
-    <a href="tutorials.html" class="mono" data-i18n="tutorials_link">使用方法</a>
-    <span class="sep mono" aria-hidden="true">·</span>
     <div class="lang-switcher">
       <button class="lang-btn mono" id="lang-btn" aria-haspopup="true" aria-expanded="false"></button>
       <div class="lang-dropdown" id="lang-dropdown" role="menu"></div>
@@ -610,8 +646,9 @@
         page_title: "VBCC — VibeCoding Controller",
         typewriter: ["iPhone =", "VibeCoding 遥控器"],
         tagline: "语音识别 & 按键绑定",
-        cta_appstore: "App Store 下载",
+        cta_testflight: "加入 TestFlight",
         cta_mac: "下载桌面端",
+        appstore_coming: "App Store 即将上架",
         about_title: "VibeCoding Controller",
         about_p1: "<strong>VBCC</strong> 将手边的 iPhone 变成 VibeCoding 的遥控器，语音转文字&按键绑定都在 iPhone 完成。",
         about_p2: "局域网直连 · 无需登录账号 · 数据本地存储。",
@@ -641,7 +678,7 @@
         faq_q2: "需要联网吗?",
         faq_a2: "需要 iPhone 和 Mac 在同一 Wi-Fi 下; 开启 P2P/AWDL 模式时, 即使没 Wi-Fi, 两台 Apple 设备也能直接互连。当您配置并使用第三方语音转写接口时才需要网络连接。",
         faq_q3: "VBCC收费吗?",
-        faq_a3: "有人说勇者是需要收报酬的，但 VBCC 几乎所有功能都是免费的，Pro 一次性购买更多意味着认可和支持。",
+        faq_a3: "有人说勇者是需要收报酬的，但 VBCC 几乎所有功能都是免费的，pro订阅更多意味着认可和支持。",
         faq_q4: "有问题/建议如何联系?",
         faq_a4: '直接发邮件到 <a href="mailto:imyiangyang@gmail.com">imyiangyang@gmail.com</a>, 我会认真看，并尽可能一一回复。',
         
@@ -652,8 +689,9 @@
         page_title: "VBCC — VibeCoding Controller",
         typewriter: ["iPhone =", "VibeCoding 遙控器"],
         tagline: "語音辨識 & 按鍵綁定",
-        cta_appstore: "App Store 下載",
+        cta_testflight: "加入 TestFlight",
         cta_mac: "下載桌面端",
+        appstore_coming: "App Store 即將上架",
         about_title: "VibeCoding Controller",
         about_p1: "<strong>VBCC</strong> 將手邊的 iPhone 變成 VibeCoding 的遙控器，語音轉文字&按鍵綁定都在 iPhone 完成。",
         about_p2: "區域網路直連 · 無需登入帳號 · 資料本地儲存。",
@@ -683,7 +721,7 @@
         faq_q2: "需要連網嗎？",
         faq_a2: "需要 iPhone 和 Mac 在同一 Wi-Fi 下；開啟 P2P/AWDL 模式時，即使沒 Wi-Fi，兩台 Apple 裝置也能直接互連。當您設定並使用第三方語音轉寫介面時才需要網路連線。",
         faq_q3: "VBCC 收費嗎？",
-        faq_a3: "有人說勇者是需要收報酬的，但 VBCC 幾乎所有功能都是免費的，Pro 一次性購買更多意味著認可與支持。",
+        faq_a3: "有人說勇者是需要收報酬的，但 VBCC 幾乎所有功能都是免費的，pro 訂閱更多意味著認可與支持。",
         faq_q4: "有問題／建議如何聯絡？",
         faq_a4: '直接寄信到 <a href="mailto:imyiangyang@gmail.com">imyiangyang@gmail.com</a>，我會認真看，並盡可能一一回覆。',
 
@@ -694,8 +732,9 @@
         page_title: "VBCC — VibeCoding Controller",
         typewriter: ["iPhone =", "VibeCoding remote"],
         tagline: "Speech recognition & key bindings",
-        cta_appstore: "Download on the App Store",
+        cta_testflight: "Join TestFlight",
         cta_mac: "Download for Mac",
+        appstore_coming: "Coming soon to the App Store",
         about_title: "VibeCoding Controller",
         about_p1: "<strong>VBCC</strong> turns the iPhone in your hand into a remote for vibe coding — speech-to-text and key bindings all happen on the iPhone.",
         about_p2: "Local network only · No account needed · Data stays on your devices.",
@@ -725,7 +764,7 @@
         faq_q2: "Does it need internet?",
         faq_a2: "iPhone and Mac need to be on the same Wi-Fi; with P2P/AWDL mode on, the two Apple devices can connect directly even without Wi-Fi. Internet is only required if you've configured a third-party transcription API.",
         faq_q3: "Does VBCC cost money?",
-        faq_a3: "Some say heroes deserve a reward, but nearly all of VBCC is free. A one-time Pro purchase is more about showing recognition and support.",
+        faq_a3: "Some say heroes deserve a reward, but nearly all of VBCC is free. A Pro subscription is more about showing recognition and support.",
         faq_q4: "How do I report bugs or send feedback?",
         faq_a4: 'Email me directly at <a href="mailto:imyiangyang@gmail.com">imyiangyang@gmail.com</a> — I read every message and reply as best I can.',
 
@@ -736,8 +775,9 @@
         page_title: "VBCC — VibeCoding Controller",
         typewriter: ["iPhone =", "VibeCoding リモコン"],
         tagline: "音声認識 & キーバインディング",
-        cta_appstore: "App Store でダウンロード",
+        cta_testflight: "TestFlight に参加",
         cta_mac: "Mac 版をダウンロード",
+        appstore_coming: "App Store 近日公開",
         about_title: "VibeCoding Controller",
         about_p1: "<strong>VBCC</strong> は手元の iPhone を VibeCoding のリモコンに変えます。音声入力もキーバインディングもすべて iPhone で完結します。",
         about_p2: "ローカルネットワーク直結 · アカウント不要 · データはローカルに保存。",
@@ -778,8 +818,9 @@
         page_title: "VBCC — VibeCoding Controller",
         typewriter: ["iPhone =", "VibeCoding 리모컨"],
         tagline: "음성 인식 & 키 바인딩",
-        cta_appstore: "App Store 다운로드",
+        cta_testflight: "TestFlight 참여",
         cta_mac: "Mac 버전 다운로드",
+        appstore_coming: "App Store 출시 예정",
         about_title: "VibeCoding Controller",
         about_p1: "<strong>VBCC</strong>는 손에 든 iPhone을 VibeCoding 리모컨으로 바꿉니다. 음성-텍스트 변환과 키 바인딩이 모두 iPhone에서 처리됩니다.",
         about_p2: "로컬 네트워크 직접 연결 · 계정 불필요 · 데이터는 로컬에 저장.",
