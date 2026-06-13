@@ -221,36 +221,37 @@
       letter-spacing: 0.04em;
     }
 
-    /* ─── Disabled App Store badge — coming soon ─── */
-    .appstore-coming {
+    /* ─── App Store badge ────────────────────────── */
+    .appstore-badge-link {
       display: inline-flex;
       flex-direction: column;
       align-items: center;
       gap: 0.35rem;
       margin-top: 1.5rem;
-      cursor: not-allowed;
-      user-select: none;
+      text-decoration: none;
+      transition: transform 0.2s ease;
     }
 
-    .appstore-badge {
+    .appstore-badge-link:hover {
+      transform: translateY(-1px);
+    }
+
+    .appstore-badge-link .appstore-badge {
       height: 44px;
       width: auto;
-      filter: grayscale(1) brightness(0.85);
-      opacity: 0.45;
-      transition: opacity 0.2s, filter 0.2s;
+      display: block;
     }
 
-    .appstore-coming:hover .appstore-badge {
-      opacity: 0.6;
-      filter: grayscale(1) brightness(0.95);
-    }
-
-    .appstore-coming-label {
+    .appstore-badge-label {
       font-family: 'JetBrains Mono', monospace;
       font-size: 0.7rem;
       color: var(--muted-foreground);
       letter-spacing: 0.04em;
-      opacity: 0.7;
+      transition: color 0.2s;
+    }
+
+    .appstore-badge-link:hover .appstore-badge-label {
+      color: var(--foreground);
     }
 
     .cta-note {
@@ -540,12 +541,13 @@
           </svg>
         </a>
       </div>
-      <div class="appstore-coming" aria-disabled="true">
+      <a class="appstore-badge-link" href="https://apps.apple.com/app/id6772499540"
+         target="_blank" rel="noopener">
         <img class="appstore-badge"
              src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg"
-             alt="Download on the App Store — coming soon">
-        <span class="appstore-coming-label mono" data-i18n="appstore_coming">即将上架</span>
-      </div>
+             alt="Download on the App Store">
+        <span class="appstore-badge-label mono" data-i18n="appstore_badge"></span>
+      </a>
     </div>
 
     <!-- ─── What is VBCC ─────────────────────────── -->
@@ -648,7 +650,7 @@
         tagline: "语音识别 & 按键绑定",
         cta_testflight: "加入 TestFlight",
         cta_mac: "下载桌面端",
-        appstore_coming: "App Store 即将上架",
+        appstore_badge: "App Store 下载",
         about_title: "VibeCoding Controller",
         about_p1: "<strong>VBCC</strong> 将手边的 iPhone 变成 VibeCoding 的遥控器，语音转文字&按键绑定都在 iPhone 完成。",
         about_p2: "局域网直连 · 无需登录账号 · 数据本地存储。",
@@ -691,7 +693,7 @@
         tagline: "語音辨識 & 按鍵綁定",
         cta_testflight: "加入 TestFlight",
         cta_mac: "下載桌面端",
-        appstore_coming: "App Store 即將上架",
+        appstore_badge: "App Store 下載",
         about_title: "VibeCoding Controller",
         about_p1: "<strong>VBCC</strong> 將手邊的 iPhone 變成 VibeCoding 的遙控器，語音轉文字&按鍵綁定都在 iPhone 完成。",
         about_p2: "區域網路直連 · 無需登入帳號 · 資料本地儲存。",
@@ -734,7 +736,7 @@
         tagline: "Speech recognition & key bindings",
         cta_testflight: "Join TestFlight",
         cta_mac: "Download for Mac",
-        appstore_coming: "Coming soon to the App Store",
+        appstore_badge: "Download on the App Store",
         about_title: "VibeCoding Controller",
         about_p1: "<strong>VBCC</strong> turns the iPhone in your hand into a remote for vibe coding — speech-to-text and key bindings all happen on the iPhone.",
         about_p2: "Local network only · No account needed · Data stays on your devices.",
@@ -777,7 +779,7 @@
         tagline: "音声認識 & キーバインディング",
         cta_testflight: "TestFlight に参加",
         cta_mac: "Mac 版をダウンロード",
-        appstore_coming: "App Store 近日公開",
+        appstore_badge: "App Store でダウンロード",
         about_title: "VibeCoding Controller",
         about_p1: "<strong>VBCC</strong> は手元の iPhone を VibeCoding のリモコンに変えます。音声入力もキーバインディングもすべて iPhone で完結します。",
         about_p2: "ローカルネットワーク直結 · アカウント不要 · データはローカルに保存。",
@@ -820,7 +822,7 @@
         tagline: "음성 인식 & 키 바인딩",
         cta_testflight: "TestFlight 참여",
         cta_mac: "Mac 버전 다운로드",
-        appstore_coming: "App Store 출시 예정",
+        appstore_badge: "App Store 다운로드",
         about_title: "VibeCoding Controller",
         about_p1: "<strong>VBCC</strong>는 손에 든 iPhone을 VibeCoding 리모컨으로 바꿉니다. 음성-텍스트 변환과 키 바인딩이 모두 iPhone에서 처리됩니다.",
         about_p2: "로컬 네트워크 직접 연결 · 계정 불필요 · 데이터는 로컬에 저장.",
