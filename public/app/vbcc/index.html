@@ -5,11 +5,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#0a0a0a">
-  <meta name="description" content="VBCC — VibeCoding Controller。把 iPhone 变成 VibeCoding 遥控器。">
+  <meta name="description" content="VBCC 把 iPhone 变成 Mac 遥控器：语音输入、远程键盘、快捷指令与 Pro 触控板。下载 VBCC Mac 2.0。">
   <meta property="og:title" content="VBCC — VibeCoding Controller">
-  <meta property="og:description" content="VBCC — VibeCoding Controller。把 iPhone 变成 VibeCoding 遥控器。">
+  <meta property="og:description" content="VBCC 把 iPhone 变成 Mac 遥控器：语音输入、远程键盘、快捷指令与 Pro 触控板。下载 VBCC Mac 2.0。">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://vbcc.app/">
+  <meta property="og:url" content="https://blog.imyiangyang.top/app/vbcc/">
   <meta property="og:image" content="icon-256.png">
   <title>VBCC — VibeCoding Controller</title>
   <link rel="icon" type="image/png" sizes="64x64" href="favicon.png">
@@ -226,6 +226,25 @@
       text-align: center;
       max-width: 32em;
       line-height: 1.6;
+    }
+
+    .mac-downloads { width: 100%; text-align: center; }
+    .download-version { font-size: 0.8rem; }
+    .download-architectures { margin-top: 0.25rem; font-size: 0.7rem; color: var(--muted-foreground); }
+    .download-options { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; margin: 1rem 0; }
+    .btn-secondary { background: var(--card); color: var(--foreground); border: 1px solid var(--border); }
+    .btn[aria-disabled="true"] { cursor: default; color: var(--muted-foreground); }
+    .btn[aria-disabled="true"]:active { transform: none; }
+    .download-notes, .setup-help { color: var(--muted-foreground); font-size: 0.8rem; text-underline-offset: 4px; }
+    .btn:focus-visible, .setup-help:focus-visible, .download-notes:focus-visible { outline: 2px solid #0A84FF; outline-offset: 5px; }
+    .setup-steps { padding-left: 1.5rem; }
+    .setup-steps li { padding-left: 0.5rem; margin-bottom: 1.5rem; }
+    .setup-steps h3 { font-size: 0.95rem; font-weight: 500; margin-bottom: 0.5rem; }
+    .setup-steps p { color: var(--muted-foreground); font-size: 0.875rem; line-height: 1.7; }
+    .cta { width: 100%; }
+    @media (max-width: 480px) {
+      .download-options { flex-direction: column; align-items: stretch; }
+      .download-options .btn { justify-content: center; padding-inline: 1rem; white-space: normal; }
     }
 
     /* ─── Sections ─────────────────────────────── */
@@ -496,10 +515,23 @@
              alt="Download on the App Store">
         <span class="appstore-badge-label mono" data-i18n="appstore_badge"></span>
       </a>
-      <a class="btn btn-primary" href="https://imyiangyang.top/downloads/vbcc-mac-v1.0-3.dmg">
-        <span data-i18n="cta_mac"></span>
-        <span class="btn-platform">macOS</span>
-      </a>
+      <div class="mac-downloads" aria-label="VBCC Mac 2.0">
+        <p class="download-version mono">VBCC Mac 2.0 · macOS 13+</p>
+        <p class="download-architectures mono">Apple Silicon / Intel</p>
+        <div class="download-options">
+          <a class="btn btn-primary" id="mac-github-download"
+             href="https://github.com/imyiangyang/vbcc-mac-release/releases#release-v2.0"
+             target="_blank" rel="noopener noreferrer">
+            <span data-i18n="cta_mac">从 GitHub 下载</span>
+          </a>
+          <a class="btn btn-secondary" id="mac-hosted-download" aria-disabled="true">
+            <span data-i18n="cta_hosted">从网站下载</span>
+            <span class="btn-platform" id="mac-hosted-status" data-i18n="cta_soon">即将提供</span>
+          </a>
+        </div>
+        <a class="download-notes" href="https://github.com/imyiangyang/vbcc-mac-release/releases/tag/v2.0"
+           target="_blank" rel="noopener noreferrer" data-i18n="release_link">查看 2.0 更新说明</a>
+      </div>
       <p class="cta-note" data-i18n="cta_note"></p>
     </div>
 
@@ -552,7 +584,47 @@
           <div class="feature-desc" data-i18n="f6_desc"></div>
         </div>
 
+        <div class="feature">
+          <div class="feature-title" data-i18n="f7_title"></div>
+          <div class="feature-desc" data-i18n="f7_desc"></div>
+        </div>
+
+        <div class="feature">
+          <div class="feature-title" data-i18n="f8_title"></div>
+          <div class="feature-desc" data-i18n="f8_desc"></div>
+        </div>
+
+        <div class="feature">
+          <div class="feature-title" data-i18n="f9_title"></div>
+          <div class="feature-desc" data-i18n="f9_desc"></div>
+        </div>
+
+        <div class="feature">
+          <div class="feature-title" data-i18n="f10_title"></div>
+          <div class="feature-desc" data-i18n="f10_desc"></div>
+        </div>
+
       </div>
+    </section>
+
+    <section id="setup">
+      <div class="section-eyebrow mono">// get started</div>
+      <h2 class="section-title" data-i18n="setup_title"></h2>
+      <ol class="setup-steps">
+        <li>
+          <h3 data-i18n="setup_1_title"></h3>
+          <p data-i18n="setup_1_desc"></p>
+        </li>
+        <li>
+          <h3 data-i18n="setup_2_title"></h3>
+          <p data-i18n="setup_2_desc"></p>
+        </li>
+        <li>
+          <h3 data-i18n="setup_3_title"></h3>
+          <p data-i18n="setup_3_desc"></p>
+        </li>
+      </ol>
+      <a class="setup-help" href="tutorials.html" data-i18n="setup_help"></a>
     </section>
 
     <!-- ─── FAQ ──────────────────────────────────── -->
@@ -579,6 +651,16 @@
         <div class="faq-q" data-i18n="faq_q4"></div>
         <div class="faq-a" data-i18n="faq_a4"></div>
       </div>
+      <div class="faq-item">
+        <div class="faq-q" data-i18n="faq_q5"></div>
+        <div class="faq-a" data-i18n="faq_a5"></div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" data-i18n="faq_q6"></div>
+        <div class="faq-a" data-i18n="faq_a6"></div>
+      </div>
+
 
     </section>
   </main>
@@ -588,6 +670,8 @@
     <span class="sep mono" aria-hidden="true">·</span>
     <a href="privacy.html" class="mono" data-i18n="privacy">隐私政策</a>
     <span class="sep mono" aria-hidden="true">·</span>
+    <a href="tutorials.html" class="mono" data-i18n="tutorials_link">使用方法</a>
+    <span class="sep mono" aria-hidden="true">·</span>
     <div class="lang-switcher">
       <button class="lang-btn mono" id="lang-btn" aria-haspopup="true" aria-expanded="false"></button>
       <div class="lang-dropdown" id="lang-dropdown" role="menu"></div>
@@ -595,224 +679,329 @@
   </footer>
 
   <script>
+    // Update this URL when publishing a new website-hosted Mac package.
+    // Leave empty to keep the website download unavailable; GitHub remains usable.
+    const MAC_HOSTED_DOWNLOAD_URL = "https://imyiangyang.top/downloads/vbcc-mac-v2.0.dmg";
+    if (MAC_HOSTED_DOWNLOAD_URL.trim()) {
+      const hostedDownload = document.getElementById('mac-hosted-download');
+      hostedDownload.href = MAC_HOSTED_DOWNLOAD_URL.trim();
+      hostedDownload.removeAttribute('aria-disabled');
+      document.getElementById('mac-hosted-status').remove();
+    }
+
     /* ─── i18n ──────────────────────────────────── */
     const i18n = {
-      "zh-Hans": {
-        page_title: "VBCC — VibeCoding Controller",
-        typewriter: ["iPhone =", "VibeCoding 遥控器"],
-        tagline: "语音识别 & 按键绑定",
-        cta_mac: "下载桌面端",
-        appstore_badge: "App Store 下载",
-        cta_note: "VBCC 依赖 Mac 端应用才能运行",
-        about_title: "VibeCoding Controller",
-        about_p1: "<strong>VBCC</strong> 将手边的 iPhone 变成 VibeCoding 的遥控器，语音转文字&按键绑定都在 iPhone 完成。",
-        about_p2: "局域网直连 · 无需登录账号 · 数据本地存储。",
-        
-        features_title: "VBCC 能做什么",
-        f1_title: "语音识别:直接发送到 Mac",
-        f1_desc: "iPhone 语音识别, 文字实时发送 Mac 光标处，和键盘输入有什么不同？",
-        
-        f2_title: "远程键盘:修饰键全开",
-        f2_desc: "自定义按键支持单键和 ⌘/⌥/⇧ 等组合键 <sup>pro</sup>, iPhone 变快捷键面板。",
-        
-        f3_title: "快捷指令:一键发送",
-        f3_desc: "把常说的——「运行测试」「提交并推送」绑定快捷指令，一键发送。",
-        
-        f4_title: "完整消息历史",
-        f4_desc: "发送过的内容本地存储, 单击复制 / 双击重发。",
-
-        f5_title: "iCloud 同步 <sup>pro</sup>",
-        f5_desc: "完整消息历史、配对凭证、L/R 按键配置、快捷指令、热词，可通过 iCloud 同步。",
-        
-        f6_title: "专业热词 <sup>pro</sup>",
-        f6_desc: "添加专有名词、产品名、人名、行业术语, 识别准确率立刻拔高。",
-        
-        faq_title: "常见问题",
-        faq_q1: "数据安全吗?",
-        faq_a1: "语音识别完全在 iPhone 本地完成, 或者您自行配置第三方语音转写接口; 识别后的文字通过同一局域网/AWDL直接发到 Mac, 不经过任何第三方服务器。",
-        faq_q2: "需要联网吗?",
-        faq_a2: "需要 iPhone 和 Mac 在同一 Wi-Fi 下; 开启 P2P/AWDL 模式时, 即使没 Wi-Fi, 两台 Apple 设备也能直接互连。当您配置并使用第三方语音转写接口时才需要网络连接。",
-        faq_q3: "VBCC收费吗?",
-        faq_a3: "有人说勇者是需要收报酬的，但 VBCC 几乎所有功能都是免费的，pro订阅更多意味着认可和支持。",
-        faq_q4: "有问题/建议如何联系?",
-        faq_a4: '直接发邮件到 <a href="mailto:imyiangyang@gmail.com">imyiangyang@gmail.com</a>, 我会认真看，并尽可能一一回复。',
-        
-        privacy: "隐私政策",
-        tutorials_link: "使用方法"
-      },
-      "zh-Hant": {
-        page_title: "VBCC — VibeCoding Controller",
-        typewriter: ["iPhone =", "VibeCoding 遙控器"],
-        tagline: "語音辨識 & 按鍵綁定",
-        cta_mac: "下載桌面端",
-        appstore_badge: "App Store 下載",
-        cta_note: "VBCC 依賴 Mac 端應用才能運行",
-        about_title: "VibeCoding Controller",
-        about_p1: "<strong>VBCC</strong> 將手邊的 iPhone 變成 VibeCoding 的遙控器，語音轉文字&按鍵綁定都在 iPhone 完成。",
-        about_p2: "區域網路直連 · 無需登入帳號 · 資料本地儲存。",
-
-        features_title: "VBCC 能做什麼",
-        f1_title: "語音辨識：直接送到 Mac",
-        f1_desc: "iPhone 語音辨識，文字即時送到 Mac 游標處，和鍵盤輸入有什麼不同？",
-
-        f2_title: "遠端鍵盤：修飾鍵全開",
-        f2_desc: "自訂按鍵支援單鍵和 ⌘/⌥/⇧ 等組合鍵 <sup>pro</sup>，iPhone 變快捷鍵面板。",
-
-        f3_title: "快捷指令：一鍵發送",
-        f3_desc: "把常說的——「執行測試」「提交並推送」綁定快捷指令，一鍵發送。",
-
-        f4_title: "完整訊息歷史",
-        f4_desc: "送出過的內容本地儲存，單擊複製 / 雙擊重發。",
-
-        f5_title: "iCloud 同步 <sup>pro</sup>",
-        f5_desc: "完整訊息歷史、配對憑證、L/R 按鍵設定、快捷指令、熱詞，可透過 iCloud 同步。",
-
-        f6_title: "專業熱詞 <sup>pro</sup>",
-        f6_desc: "加入專有名詞、產品名、人名、行業術語，辨識準確率立刻拉高。",
-
-        faq_title: "常見問題",
-        faq_q1: "資料安全嗎？",
-        faq_a1: "語音辨識完全在 iPhone 本地完成，或者您自行設定第三方語音轉寫介面；辨識後的文字透過同一區域網路/AWDL 直接送到 Mac，不經過任何第三方伺服器。",
-        faq_q2: "需要連網嗎？",
-        faq_a2: "需要 iPhone 和 Mac 在同一 Wi-Fi 下；開啟 P2P/AWDL 模式時，即使沒 Wi-Fi，兩台 Apple 裝置也能直接互連。當您設定並使用第三方語音轉寫介面時才需要網路連線。",
-        faq_q3: "VBCC 收費嗎？",
-        faq_a3: "有人說勇者是需要收報酬的，但 VBCC 幾乎所有功能都是免費的，pro 訂閱更多意味著認可與支持。",
-        faq_q4: "有問題／建議如何聯絡？",
-        faq_a4: '直接寄信到 <a href="mailto:imyiangyang@gmail.com">imyiangyang@gmail.com</a>，我會認真看，並盡可能一一回覆。',
-
-        privacy: "隱私權政策",
-        tutorials_link: "使用方法"
-      },
-      "en": {
-        page_title: "VBCC — VibeCoding Controller",
-        typewriter: ["iPhone =", "VibeCoding remote"],
-        tagline: "Speech recognition & key bindings",
-        cta_mac: "Download for Mac",
-        appstore_badge: "Download on the App Store",
-        cta_note: "VBCC requires the Mac companion app to work",
-        about_title: "VibeCoding Controller",
-        about_p1: "<strong>VBCC</strong> turns the iPhone in your hand into a remote for vibe coding — speech-to-text and key bindings all happen on the iPhone.",
-        about_p2: "Local network only · No account needed · Data stays on your devices.",
-
-        features_title: "What VBCC does",
-        f1_title: "Speech to text — sent straight to your Mac",
-        f1_desc: "iPhone recognizes your voice and the text lands at your Mac's cursor in real time. How is it different from typing on a keyboard?",
-
-        f2_title: "Remote keyboard — full modifier support",
-        f2_desc: "Custom buttons support single keys and ⌘/⌥/⇧ combinations <sup>pro</sup>. The iPhone becomes a shortcut panel.",
-
-        f3_title: "Quick commands — one-tap send",
-        f3_desc: "Bind the things you say all the time — \"run tests\", \"commit and push\" — to quick commands and fire them with one tap.",
-
-        f4_title: "Full message history",
-        f4_desc: "Everything you send is kept locally. Tap to copy, double-tap to resend.",
-
-        f5_title: "iCloud sync <sup>pro</sup>",
-        f5_desc: "Full message history, pairing credentials, L/R bindings, quick commands, hotwords — all syncable via iCloud.",
-
-        f6_title: "Pro hotwords <sup>pro</sup>",
-        f6_desc: "Add product names, jargon, personal names, industry terms — recognition accuracy goes up immediately.",
-
-        faq_title: "FAQ",
-        faq_q1: "Is my data safe?",
-        faq_a1: "Speech recognition runs entirely on-device on the iPhone — or with a third-party transcription API you configure yourself. The recognized text goes over the same local network / AWDL directly to your Mac, never through any third-party server.",
-        faq_q2: "Does it need internet?",
-        faq_a2: "iPhone and Mac need to be on the same Wi-Fi; with P2P/AWDL mode on, the two Apple devices can connect directly even without Wi-Fi. Internet is only required if you've configured a third-party transcription API.",
-        faq_q3: "Does VBCC cost money?",
-        faq_a3: "Some say heroes deserve a reward, but nearly all of VBCC is free. A Pro subscription is more about showing recognition and support.",
-        faq_q4: "How do I report bugs or send feedback?",
-        faq_a4: 'Email me directly at <a href="mailto:imyiangyang@gmail.com">imyiangyang@gmail.com</a> — I read every message and reply as best I can.',
-
-        privacy: "Privacy Policy",
-        tutorials_link: "Tutorials"
-      },
-      "ja": {
-        page_title: "VBCC — VibeCoding Controller",
-        typewriter: ["iPhone =", "VibeCoding リモコン"],
-        tagline: "音声認識 & キーバインディング",
-        cta_mac: "Mac 版をダウンロード",
-        appstore_badge: "App Store でダウンロード",
-        cta_note: "VBCC は Mac 版アプリが必要です",
-        about_title: "VibeCoding Controller",
-        about_p1: "<strong>VBCC</strong> は手元の iPhone を VibeCoding のリモコンに変えます。音声入力もキーバインディングもすべて iPhone で完結します。",
-        about_p2: "ローカルネットワーク直結 · アカウント不要 · データはローカルに保存。",
-
-        features_title: "VBCC でできること",
-        f1_title: "音声認識:Mac に直接送信",
-        f1_desc: "iPhone が音声を認識し、Mac のカーソル位置にリアルタイムで送信。キーボード入力と何が違いますか?",
-
-        f2_title: "リモートキーボード:修飾キーすべて対応",
-        f2_desc: "カスタムボタンは単キーと ⌘/⌥/⇧ などの組み合わせに対応 <sup>pro</sup>。iPhone がショートカットパッドになります。",
-
-        f3_title: "クイックコマンド:ワンタップ送信",
-        f3_desc: "「テスト実行」「コミットしてプッシュ」など、よく言う言葉をクイックコマンドに割り当ててワンタップで送信。",
-
-        f4_title: "完全なメッセージ履歴",
-        f4_desc: "送信した内容はローカルに保存。タップでコピー / ダブルタップで再送信。",
-
-        f5_title: "iCloud 同期 <sup>pro</sup>",
-        f5_desc: "完全なメッセージ履歴、ペアリング情報、L/R キー設定、クイックコマンド、ホットワード — すべて iCloud で同期可能。",
-
-        f6_title: "プロホットワード <sup>pro</sup>",
-        f6_desc: "固有名詞、製品名、人名、業界用語を追加すると、認識精度が一気に向上します。",
-
-        faq_title: "よくある質問",
-        faq_q1: "データは安全ですか?",
-        faq_a1: "音声認識は iPhone 上で完結します。あるいはご自身でサードパーティの音声書き起こし API を設定することも可能です。認識結果は同じローカルネットワーク/AWDL 経由で直接 Mac に送られ、第三者のサーバーは経由しません。",
-        faq_q2: "インターネット接続は必要ですか?",
-        faq_a2: "iPhone と Mac が同じ Wi-Fi にある必要があります。P2P/AWDL モードを有効にすれば、Wi-Fi がなくても 2 台の Apple デバイスは直接接続できます。サードパーティの音声書き起こし API を設定して使う場合のみ、ネット接続が必要です。",
-        faq_q3: "VBCC は有料ですか?",
-        faq_a3: "勇者には報酬が必要だと言う人もいますが、VBCC のほぼすべての機能は無料です。Pro サブスクリプションは、応援と支持の意味合いが強いです。",
-        faq_q4: "問題報告や要望はどう送りますか?",
-        faq_a4: '直接メールしてください: <a href="mailto:imyiangyang@gmail.com">imyiangyang@gmail.com</a>。すべて目を通し、できる限り返信します。',
-
-        privacy: "プライバシーポリシー",
-        tutorials_link: "使い方"
-      },
-      "ko": {
-        page_title: "VBCC — VibeCoding Controller",
-        typewriter: ["iPhone =", "VibeCoding 리모컨"],
-        tagline: "음성 인식 & 키 바인딩",
-        cta_mac: "Mac 버전 다운로드",
-        appstore_badge: "App Store 다운로드",
-        cta_note: "VBCC는 Mac 앱이 필요합니다",
-        about_title: "VibeCoding Controller",
-        about_p1: "<strong>VBCC</strong>는 손에 든 iPhone을 VibeCoding 리모컨으로 바꿉니다. 음성-텍스트 변환과 키 바인딩이 모두 iPhone에서 처리됩니다.",
-        about_p2: "로컬 네트워크 직접 연결 · 계정 불필요 · 데이터는 로컬에 저장.",
-
-        features_title: "VBCC가 할 수 있는 일",
-        f1_title: "음성 인식: Mac으로 바로 전송",
-        f1_desc: "iPhone이 음성을 인식해 Mac의 커서 위치로 실시간 전송. 키보드 입력과 무엇이 다른가요?",
-
-        f2_title: "원격 키보드: 수정자키 전부 지원",
-        f2_desc: "사용자 정의 버튼은 단일 키와 ⌘/⌥/⇧ 등 조합 키를 지원 <sup>pro</sup>. iPhone이 단축키 패널이 됩니다.",
-
-        f3_title: "빠른 명령: 원탭 전송",
-        f3_desc: "「테스트 실행」, 「커밋 후 푸시」처럼 자주 말하는 것을 빠른 명령으로 바인딩해 원탭으로 전송합니다.",
-
-        f4_title: "전체 메시지 기록",
-        f4_desc: "보낸 내용은 로컬에 저장됩니다. 탭으로 복사, 더블탭으로 재전송.",
-
-        f5_title: "iCloud 동기화 <sup>pro</sup>",
-        f5_desc: "전체 메시지 기록, 페어링 자격 증명, L/R 버튼 설정, 빠른 명령, 핫워드를 모두 iCloud로 동기화할 수 있습니다.",
-
-        f6_title: "프로 핫워드 <sup>pro</sup>",
-        f6_desc: "고유명사, 제품명, 인명, 업계 용어를 추가하면 인식 정확도가 즉시 올라갑니다.",
-
-        faq_title: "자주 묻는 질문",
-        faq_q1: "데이터는 안전한가요?",
-        faq_a1: "음성 인식은 iPhone에서 완전히 처리되거나, 직접 설정한 제3자 음성 전사 API에서 처리됩니다. 인식된 텍스트는 동일한 로컬 네트워크/AWDL을 통해 Mac으로 직접 전송되며, 어떤 제3자 서버도 거치지 않습니다.",
-        faq_q2: "인터넷이 필요한가요?",
-        faq_a2: "iPhone과 Mac이 같은 Wi-Fi에 있어야 합니다. P2P/AWDL 모드를 켜면 Wi-Fi가 없어도 두 Apple 기기가 직접 연결됩니다. 제3자 음성 전사 API를 설정해 사용할 때만 네트워크 연결이 필요합니다.",
-        faq_q3: "VBCC는 유료인가요?",
-        faq_a3: "용자는 보상을 받아야 한다는 말도 있지만, VBCC의 거의 모든 기능은 무료입니다. Pro 구독은 인정과 지지의 의미가 더 큽니다.",
-        faq_q4: "문제 보고나 제안은 어떻게 보내나요?",
-        faq_a4: '직접 이메일을 보내주세요: <a href="mailto:imyiangyang@gmail.com">imyiangyang@gmail.com</a>. 모두 읽고 가능한 한 답장드립니다.',
-
-        privacy: "개인정보 처리방침",
-        tutorials_link: "사용 방법"
-      }
-    };
+  "zh-Hans": {
+    "page_title": "VBCC — VibeCoding Controller",
+    "meta_description": "VBCC 把 iPhone 变成 Mac 遥控器：语音输入、远程键盘、快捷指令与 Pro 触控板。下载 VBCC Mac 2.0。",
+    "typewriter": [
+      "iPhone =",
+      "VibeCoding 遥控器"
+    ],
+    "tagline": "语音输入 · 远程键盘 · 触控板",
+    "cta_mac": "从 GitHub 下载",
+    "cta_hosted": "从网站下载",
+    "cta_soon": "即将提供",
+    "appstore_badge": "在 App Store 下载 iPhone 端",
+    "cta_note": "iPhone 需 iOS 26 或更新版本。控制 Mac 需安装并连接桌面端；未连接时也可识别语音、保存消息。",
+    "release_link": "查看 2.0 更新说明",
+    "about_title": "VibeCoding Controller",
+    "about_p1": "<strong>VBCC</strong> 把 iPhone 变成 Mac 的输入遥控器。说出想法、发送文字和快捷键，或用 Pro 触控板移动光标，让操作跟上思路。",
+    "about_p2": "局域网配对直连，无需注册 VBCC 账号。语音识别默认使用 iPhone 系统引擎，也可自行配置豆包；Mac 端可选开启文本润色。",
+    "features_title": "当前版本能做什么",
+    "f1_title": "语音输入：说完，送到 Mac",
+    "f1_desc": "使用 iPhone 系统语音识别，或自行配置豆包 ASR。选择识别语言和音频输入设备，将文字发送到 Mac 当前焦点输入框。",
+    "f2_title": "远程键盘：常用按键在手边",
+    "f2_desc": "用 L/R 按钮发送按键，支持导航与编辑操作；Mac 端也支持 ⌘ / ⌥ / ⇧ / ⌃ 修饰键组合。",
+    "f3_title": "自定义快捷指令 <sup>Pro</sup>",
+    "f3_desc": "把常用文字或组合键保存为按钮，可命名、排序并参考内置示例。支持添加到系统快捷指令，并在支持的 iPhone 上绑定操作按钮。",
+    "f4_title": "消息历史与离线记录",
+    "f4_desc": "消息保存在本机，支持复制、重发与 Markdown 预览。未连接 Mac 时仍可录音并保存待发送消息；连接后双击手动重发。",
+    "f5_title": "远程触控板 <sup>Pro</sup>",
+    "f5_desc": "单指移动、轻点单击、双击、长按拖拽、双指轻点右键，以及双指横纵滚动与惯性滚动。指针与滚动灵敏度可分别调整。",
+    "f6_title": "三种首页，按场景切换",
+    "f6_desc": "默认消息布局适合语音与历史记录；Pro 另提供大按钮指令布局和触控板布局，方便集中操作。",
+    "f7_title": "Mac 端文本润色",
+    "f7_desc": "可选接入 Ollama 或豆包，调整模型、提示词与超时，并测试连接。模型服务由你自行配置，VBCC 不附带模型。",
+    "f8_title": "开发工具 Hooks 通知 <sup>Pro</sup>",
+    "f8_desc": "在 Mac 端为 Claude Code、Codex、Cursor 配置 Hooks，把触发的通知转发到已连接的 iPhone，在消息列表中查看。",
+    "f9_title": "自定义语音热词 <sup>Pro</sup>",
+    "f9_desc": "为专有名词、产品名和人名建立词表，切换当前词表并查看命中统计，辅助识别熟悉的表达。",
+    "f10_title": "iCloud 同步 <sup>Pro</sup>",
+    "f10_desc": "开启后，在同一 Apple 账户的设备间同步消息、热词、快捷指令及非敏感设置。配对凭证、API Key 和调试日志仅保留在本机。",
+    "setup_title": "三步连接你的 Mac",
+    "setup_1_title": "安装两端应用",
+    "setup_1_desc": "iPhone 安装 VBCC；Mac 下载 2.0，将应用拖入“应用程序”。Mac 安装包同时支持 Apple Silicon 与 Intel。",
+    "setup_2_title": "授权并配对",
+    "setup_2_desc": "让两端处于可互通的局域网，允许 iPhone 本地网络访问，并在 Mac“系统设置 → 隐私与安全性 → 辅助功能”中授权 VBCC。按提示输入 Mac 显示的数字完成配对。",
+    "setup_3_title": "选中输入框，开始操作",
+    "setup_3_desc": "先在 Mac 选中目标输入框，再用 iPhone 发送语音文字或按键。Pro 用户可在首页布局设置中切换指令或触控板。",
+    "setup_help": "查看使用方法与配置说明 →",
+    "faq_title": "常见问题",
+    "faq_q1": "语音和文字会传到哪里？",
+    "faq_a1": "系统语音识别在 iPhone 上处理；启用豆包 ASR 时，音频会发送到你配置的服务。文字通过本地连接发送给已配对的 Mac；若启用 Mac 润色，文字也会交给所选模型服务。Pro iCloud 同步仅在你开启时使用本人 Apple 账户的私有空间。",
+    "faq_q2": "需要互联网吗？",
+    "faq_a2": "连接 Mac 需要两台设备网络互通。可使用同一局域网，或在两端启用 P2P/AWDL 直连（需开启 Wi-Fi）。系统识别模型首次下载、云端 ASR、远程润色服务和 iCloud 同步需要相应网络连接。",
+    "faq_q3": "VBCC 如何收费？",
+    "faq_a3": "Mac 端可免费下载。iPhone 端基础语音输入、L/R 按键和消息历史可免费使用；Pro 为一次性购买，解锁快捷指令、指令与触控板布局、热词、Mac Hooks 通知和 iCloud 同步。价格以 App 内显示为准。",
+    "faq_q4": "如何反馈问题或建议？",
+    "faq_a4": "请发邮件到 <a href=\"mailto:imyiangyang@gmail.com\">imyiangyang@gmail.com</a>，欢迎附上两端版本和复现步骤。",
+    "faq_q5": "已连接，但触控板或输入不可用？",
+    "faq_a5": "请检查 Mac 的辅助功能权限，以及目标应用的输入焦点。远程触控板需要支持该功能的 iPhone 版本、Pro 和 Mac 2.0 或更新版本；旧 Mac 端请先升级。",
+    "faq_q6": "未连接 Mac，也能使用吗？",
+    "faq_a6": "可以先识别语音、记录消息。待发送消息不会在连接后自动全部发送；请双击想发送的消息，或使用重发菜单。远程键盘和触控板实际控制 Mac 时需要保持连接。",
+    "privacy": "隐私政策",
+    "tutorials_link": "使用方法"
+  },
+  "zh-Hant": {
+    "page_title": "VBCC — VibeCoding Controller",
+    "meta_description": "VBCC 把 iPhone 變成 Mac 遙控器：語音輸入、遠端鍵盤、快捷指令與 Pro 觸控板。下載 VBCC Mac 2.0。",
+    "typewriter": [
+      "iPhone =",
+      "VibeCoding 遙控器"
+    ],
+    "tagline": "語音輸入 · 遠端鍵盤 · 觸控板",
+    "cta_mac": "從 GitHub 下載",
+    "cta_hosted": "從網站下載",
+    "cta_soon": "即將提供",
+    "appstore_badge": "在 App Store 下載 iPhone 版",
+    "cta_note": "iPhone 需 iOS 26 或更新版本。控制 Mac 需安裝並連接桌面版；未連接時也可辨識語音、儲存訊息。",
+    "release_link": "查看 2.0 更新說明",
+    "about_title": "VibeCoding Controller",
+    "about_p1": "<strong>VBCC</strong> 把 iPhone 變成 Mac 的輸入遙控器。說出想法、傳送文字和快捷鍵，或用 Pro 觸控板移動游標，讓操作跟上思路。",
+    "about_p2": "區域網路配對直連，無需註冊 VBCC 帳號。語音辨識預設使用 iPhone 系統引擎，也可自行設定豆包；Mac 版可選擇啟用文字潤飾。",
+    "features_title": "目前版本能做什麼",
+    "f1_title": "語音輸入：說完，送到 Mac",
+    "f1_desc": "使用 iPhone 系統語音辨識，或自行設定豆包 ASR。選擇辨識語言與音訊輸入裝置，將文字送到 Mac 目前取得焦點的輸入框。",
+    "f2_title": "遠端鍵盤：常用按鍵在手邊",
+    "f2_desc": "用 L/R 按鈕傳送按鍵，支援導覽與編輯操作；Mac 版也支援 ⌘ / ⌥ / ⇧ / ⌃ 修飾鍵組合。",
+    "f3_title": "自訂快捷指令 <sup>Pro</sup>",
+    "f3_desc": "把常用文字或組合鍵儲存為按鈕，可命名、排序並參考內建範例。支援加入系統捷徑，並在支援的 iPhone 上綁定動作按鈕。",
+    "f4_title": "訊息記錄與離線記錄",
+    "f4_desc": "訊息儲存在本機，支援複製、重送與 Markdown 預覽。未連接 Mac 時仍可錄音並儲存待傳送訊息；連接後點兩下手動重送。",
+    "f5_title": "遠端觸控板 <sup>Pro</sup>",
+    "f5_desc": "單指移動、輕點、點兩下、長按拖曳、雙指輕點右鍵，以及雙指橫向與縱向捲動和慣性捲動。指標與捲動靈敏度可分別調整。",
+    "f6_title": "三種首頁，依情境切換",
+    "f6_desc": "預設訊息版面適合語音與記錄；Pro 另提供大按鈕指令版面和觸控板版面，方便集中操作。",
+    "f7_title": "Mac 版文字潤飾",
+    "f7_desc": "可選接入 Ollama 或豆包，調整模型、提示詞與逾時，並測試連線。模型服務由你自行設定，VBCC 不附帶模型。",
+    "f8_title": "開發工具 Hooks 通知 <sup>Pro</sup>",
+    "f8_desc": "在 Mac 版為 Claude Code、Codex、Cursor 設定 Hooks，把觸發的通知轉送到已連接的 iPhone，在訊息列表中查看。",
+    "f9_title": "自訂語音熱詞 <sup>Pro</sup>",
+    "f9_desc": "為專有名詞、產品名和人名建立詞表，切換目前詞表並查看命中統計，輔助辨識熟悉的表達。",
+    "f10_title": "iCloud 同步 <sup>Pro</sup>",
+    "f10_desc": "啟用後，在同一 Apple 帳號的裝置間同步訊息、熱詞、快捷指令與非敏感設定。配對憑證、API Key 和偵錯記錄僅保留在本機。",
+    "setup_title": "三步連接你的 Mac",
+    "setup_1_title": "安裝兩端應用程式",
+    "setup_1_desc": "iPhone 安裝 VBCC；Mac 下載 2.0，將應用程式拖入「應用程式」。Mac 安裝包同時支援 Apple Silicon 與 Intel。",
+    "setup_2_title": "授權並配對",
+    "setup_2_desc": "讓兩端處於可互通的區域網路，允許 iPhone 本地網路存取，並在 Mac「系統設定 → 隱私權與安全性 → 輔助使用」中授權 VBCC。依提示輸入 Mac 顯示的數字完成配對。",
+    "setup_3_title": "選取輸入框，開始操作",
+    "setup_3_desc": "先在 Mac 選取目標輸入框，再用 iPhone 傳送語音文字或按鍵。Pro 使用者可在首頁版面設定中切換指令或觸控板。",
+    "setup_help": "查看使用方法與設定說明 →",
+    "faq_title": "常見問題",
+    "faq_q1": "語音和文字會傳到哪裡？",
+    "faq_a1": "系統語音辨識在 iPhone 上處理；啟用豆包 ASR 時，音訊會傳送到你設定的服務。文字透過本地連線傳送給已配對的 Mac；若啟用 Mac 潤飾，文字也會交給所選模型服務。Pro iCloud 同步僅在你啟用時使用本人 Apple 帳號的私有空間。",
+    "faq_q2": "需要網際網路嗎？",
+    "faq_a2": "連接 Mac 需要兩台裝置網路互通。可使用同一區域網路，或在兩端啟用 P2P/AWDL 直連（需開啟 Wi-Fi）。系統辨識模型首次下載、雲端 ASR、遠端潤飾服務及 iCloud 同步需要相應網路連線。",
+    "faq_q3": "VBCC 如何收費？",
+    "faq_a3": "Mac 版可免費下載。iPhone 版基本語音輸入、L/R 按鍵及訊息記錄可免費使用；Pro 為一次性購買，解鎖快捷指令、指令與觸控板版面、熱詞、Mac Hooks 通知及 iCloud 同步。價格以 App 內顯示為準。",
+    "faq_q4": "如何回報問題或建議？",
+    "faq_a4": "請寄信到 <a href=\"mailto:imyiangyang@gmail.com\">imyiangyang@gmail.com</a>，歡迎附上兩端版本與重現步驟。",
+    "faq_q5": "已連接，但觸控板或輸入無法使用？",
+    "faq_a5": "請檢查 Mac 的輔助使用權限及目標應用程式的輸入焦點。遠端觸控板需要支援該功能的 iPhone 版本、Pro 和 Mac 2.0 或更新版本；舊 Mac 版請先升級。",
+    "faq_q6": "未連接 Mac，也能使用嗎？",
+    "faq_a6": "可以先辨識語音、記錄訊息。待傳送訊息不會在連接後自動全部送出；請點兩下想傳送的訊息，或使用重送選單。遠端鍵盤和觸控板實際控制 Mac 時需要保持連線。",
+    "privacy": "隱私權政策",
+    "tutorials_link": "使用方法"
+  },
+  "en": {
+    "page_title": "VBCC — VibeCoding Controller",
+    "meta_description": "Turn your iPhone into a Mac remote: voice input, remote keys, quick commands and a Pro trackpad. Download VBCC Mac 2.0.",
+    "typewriter": [
+      "iPhone =",
+      "VibeCoding remote"
+    ],
+    "tagline": "Voice input · Remote keys · Trackpad",
+    "cta_mac": "Download from GitHub",
+    "cta_hosted": "Download from website",
+    "cta_soon": "Coming soon",
+    "appstore_badge": "Get the iPhone app on the App Store",
+    "cta_note": "Requires iOS 26 or later. Install and connect the Mac app to control your Mac; voice recognition and message capture also work while disconnected.",
+    "release_link": "Read the 2.0 release notes",
+    "about_title": "VibeCoding Controller",
+    "about_p1": "<strong>VBCC</strong> turns your iPhone into an input remote for your Mac. Speak an idea, send text and shortcuts, or move the pointer with the Pro trackpad.",
+    "about_p2": "Pair over your local network. No VBCC account needed. Use the iPhone system speech engine by default, configure Doubao yourself, or optionally polish text on the Mac.",
+    "features_title": "What the current version does",
+    "f1_title": "Voice input, straight to your Mac",
+    "f1_desc": "Use iPhone system speech recognition or your own Doubao ASR configuration. Choose a recognition language and audio input device, then send text to the focused field on your Mac.",
+    "f2_title": "Remote keys, within reach",
+    "f2_desc": "Send navigation and editing keys with the L/R buttons. The Mac app also supports ⌘ / ⌥ / ⇧ / ⌃ modifier combinations.",
+    "f3_title": "Custom quick commands <sup>Pro</sup>",
+    "f3_desc": "Save text or key combinations as named, reorderable buttons, with built-in examples for reference. Add commands to Apple Shortcuts and assign them to the Action button on supported iPhones.",
+    "f4_title": "Message history and offline capture",
+    "f4_desc": "Keep messages locally, copy or resend them, and preview Markdown. Record and save pending messages without a Mac connection; double-tap to resend them manually after connecting.",
+    "f5_title": "Remote trackpad <sup>Pro</sup>",
+    "f5_desc": "Move with one finger, tap, double-tap, hold to drag, tap with two fingers to right-click, and scroll in both directions with momentum. Adjust pointer and scroll sensitivity separately.",
+    "f6_title": "Three home layouts",
+    "f6_desc": "The default message layout keeps voice input and history together. Pro adds a large-button command layout and a trackpad layout for focused control.",
+    "f7_title": "Text polishing on your Mac",
+    "f7_desc": "Optionally connect Ollama or Doubao, set a model, prompt and timeout, and test the connection. You configure the model service yourself; VBCC does not bundle models.",
+    "f8_title": "Developer tool Hooks <sup>Pro</sup>",
+    "f8_desc": "Configure Hooks for Claude Code, Codex and Cursor on your Mac. Forward triggered notifications to your connected iPhone and read them in the message list.",
+    "f9_title": "Custom speech hotwords <sup>Pro</sup>",
+    "f9_desc": "Create word lists for names, products and specialist terms. Switch the active list and review hit counts to help recognition with familiar expressions.",
+    "f10_title": "iCloud sync <sup>Pro</sup>",
+    "f10_desc": "When enabled, sync messages, hotwords, quick commands and non-sensitive settings across devices on your Apple Account. Pairing credentials, API keys and debug logs stay on the device.",
+    "setup_title": "Connect your Mac in three steps",
+    "setup_1_title": "Install both apps",
+    "setup_1_desc": "Install VBCC on your iPhone. Download Mac 2.0 and drag it into Applications. The Mac package supports both Apple Silicon and Intel.",
+    "setup_2_title": "Allow access and pair",
+    "setup_2_desc": "Use a network where both devices can reach each other. Allow Local Network access on iPhone and enable VBCC in Mac System Settings → Privacy & Security → Accessibility. Enter the digits displayed on your Mac when prompted.",
+    "setup_3_title": "Focus a field and start",
+    "setup_3_desc": "Select a target text field on your Mac, then send voice text or keys from iPhone. Pro users can select the command or trackpad layout in home layout settings.",
+    "setup_help": "See tutorials and configuration guides →",
+    "faq_title": "FAQ",
+    "faq_q1": "Where do my voice and text go?",
+    "faq_a1": "System speech recognition processes audio on iPhone. With Doubao ASR enabled, audio goes to the service you configure. Text travels directly to your paired Mac over a local connection; optional Mac polishing also sends it to the selected model service. Pro iCloud sync uses your private Apple Account space only when enabled.",
+    "faq_q2": "Does it need internet?",
+    "faq_a2": "Your devices must be able to reach each other over the network. Use a shared local network, or enable P2P/AWDL on both devices for a direct connection with Wi-Fi turned on. Initial speech model downloads, cloud ASR, remote polishing services and iCloud sync need their respective network connections.",
+    "faq_q3": "How much does VBCC cost?",
+    "faq_a3": "The Mac app is free to download. Basic iPhone voice input, L/R keys and message history are free. Pro is a one-time purchase that unlocks quick commands, command and trackpad layouts, hotwords, Mac Hooks notifications and iCloud sync. See the app for pricing.",
+    "faq_q4": "How can I report an issue or suggestion?",
+    "faq_a4": "Email <a href=\"mailto:imyiangyang@gmail.com\">imyiangyang@gmail.com</a>. Please include both app versions and steps to reproduce the issue.",
+    "faq_q5": "Connected, but input or trackpad does not work?",
+    "faq_a5": "Check Accessibility permission on your Mac and the target app’s input focus. Remote trackpad needs a compatible iPhone app, Pro and Mac 2.0 or later. Update older Mac installations first.",
+    "faq_q6": "Can I use it without connecting a Mac?",
+    "faq_a6": "You can recognize speech and save messages first. Pending messages are not all sent automatically when you connect. Double-tap a message or use its resend menu to choose what to send. Controlling your Mac with remote keys or trackpad requires a connection.",
+    "privacy": "Privacy Policy",
+    "tutorials_link": "Tutorials"
+  },
+  "ja": {
+    "page_title": "VBCC — VibeCoding Controller",
+    "meta_description": "iPhone を Mac のリモコンに。音声入力、リモートキー、クイックコマンド、Pro トラックパッド。VBCC Mac 2.0 をダウンロード。",
+    "typewriter": [
+      "iPhone =",
+      "VibeCoding リモコン"
+    ],
+    "tagline": "音声入力 · リモートキー · トラックパッド",
+    "cta_mac": "GitHub からダウンロード",
+    "cta_hosted": "サイトからダウンロード",
+    "cta_soon": "準備中",
+    "appstore_badge": "App Store で iPhone 版を入手",
+    "cta_note": "iOS 26 以降が必要です。Mac の操作にはデスクトップ版のインストールと接続が必要です。未接続でも音声認識とメッセージ保存ができます。",
+    "release_link": "2.0 のリリースノート",
+    "about_title": "VibeCoding Controller",
+    "about_p1": "<strong>VBCC</strong> は iPhone を Mac の入力リモコンに変えます。アイデアを話し、テキストやショートカットを送り、Pro トラックパッドでポインタを動かせます。",
+    "about_p2": "ローカルネットワークでペアリング。VBCC アカウントは不要です。標準では iPhone の音声認識を使用し、豆包を自分で設定することも、Mac で文章を整えることもできます。",
+    "features_title": "現在のバージョンでできること",
+    "f1_title": "音声入力を、そのまま Mac へ",
+    "f1_desc": "iPhone のシステム音声認識、または自分で設定した豆包 ASR を使用。認識言語と音声入力デバイスを選び、Mac でフォーカス中の入力欄へ送信します。",
+    "f2_title": "手元で使えるリモートキー",
+    "f2_desc": "L/R ボタンで移動・編集キーを送信。Mac 版は ⌘ / ⌥ / ⇧ / ⌃ の修飾キーの組み合わせにも対応します。",
+    "f3_title": "カスタムコマンド <sup>Pro</sup>",
+    "f3_desc": "テキストやキーの組み合わせをボタンに保存。名前変更、並べ替え、内蔵例の参照が可能です。システムのショートカットに追加し、対応 iPhone のアクションボタンにも割り当てられます。",
+    "f4_title": "メッセージ履歴とオフライン保存",
+    "f4_desc": "メッセージを端末に保存し、コピー、再送、Markdown プレビューに対応。Mac 未接続でも録音して未送信メッセージを保存し、接続後にダブルタップで手動再送できます。",
+    "f5_title": "リモートトラックパッド <sup>Pro</sup>",
+    "f5_desc": "1 本指で移動、タップ、ダブルタップ、長押しドラッグ、2 本指タップで右クリック。縦横のスクロールと慣性スクロールに対応し、ポインタとスクロールの感度を個別に調整できます。",
+    "f6_title": "用途に合わせた 3 つのホーム画面",
+    "f6_desc": "標準のメッセージ画面で音声入力と履歴を表示。Pro では大きなボタンのコマンド画面とトラックパッド画面も選べます。",
+    "f7_title": "Mac でテキストを整える",
+    "f7_desc": "Ollama または豆包を任意で設定。モデル、プロンプト、タイムアウトの変更と接続テストができます。モデルサービスはご自身で用意し、VBCC にモデルは付属しません。",
+    "f8_title": "開発ツールの Hooks 通知 <sup>Pro</sup>",
+    "f8_desc": "Mac で Claude Code、Codex、Cursor の Hooks を設定。発生した通知を接続中の iPhone に転送し、メッセージ一覧で確認できます。",
+    "f9_title": "カスタム音声ホットワード <sup>Pro</sup>",
+    "f9_desc": "人名、製品名、専門用語の単語リストを作成。有効なリストを切り替え、ヒット数を確認して、よく使う表現の認識を補助します。",
+    "f10_title": "iCloud 同期 <sup>Pro</sup>",
+    "f10_desc": "有効にすると、同じ Apple Account の端末間でメッセージ、ホットワード、コマンド、機密性のない設定を同期。ペアリング認証情報、API キー、デバッグログは端末内にのみ保存します。",
+    "setup_title": "3 ステップで Mac に接続",
+    "setup_1_title": "両方のアプリをインストール",
+    "setup_1_desc": "iPhone に VBCC をインストール。Mac 版 2.0 をダウンロードし「アプリケーション」にドラッグします。Apple Silicon と Intel の両方に対応します。",
+    "setup_2_title": "アクセスを許可してペアリング",
+    "setup_2_desc": "両端末が通信できるネットワークを使います。iPhone のローカルネットワークを許可し、Mac の「システム設定 → プライバシーとセキュリティ → アクセシビリティ」で VBCC を許可。案内に従って Mac に表示された数字を入力します。",
+    "setup_3_title": "入力欄を選んで操作開始",
+    "setup_3_desc": "Mac の入力欄を選び、iPhone から音声テキストやキーを送信。Pro ではホーム画面設定からコマンドまたはトラックパッドに切り替えられます。",
+    "setup_help": "使い方と設定ガイドを見る →",
+    "faq_title": "よくある質問",
+    "faq_q1": "音声やテキストはどこに送られますか？",
+    "faq_a1": "システム音声認識は iPhone 上で処理します。豆包 ASR を有効にすると設定先に音声を送信します。テキストはローカル接続でペアリング済み Mac へ送られ、Mac の文章調整を有効にした場合は選択したモデルサービスにも送信されます。Pro の iCloud 同期は有効にした場合のみ、ご自身の Apple Account のプライベート領域を使います。",
+    "faq_q2": "インターネットは必要ですか？",
+    "faq_a2": "両端末がネットワークで通信できる必要があります。同じローカルネットワークを使うか、Wi-Fi をオンにして両端末の P2P/AWDL を有効にします。初回の音声モデル取得、クラウド ASR、リモート文章調整、iCloud 同期にはそれぞれのネットワーク接続が必要です。",
+    "faq_q3": "料金はかかりますか？",
+    "faq_a3": "Mac 版は無料でダウンロードできます。iPhone の基本音声入力、L/R キー、メッセージ履歴は無料です。Pro は買い切りで、コマンド、コマンド・トラックパッド画面、ホットワード、Mac Hooks 通知、iCloud 同期を利用できます。価格はアプリ内でご確認ください。",
+    "faq_q4": "問題や要望の連絡先は？",
+    "faq_a4": "<a href=\"mailto:imyiangyang@gmail.com\">imyiangyang@gmail.com</a> まで、両アプリのバージョンと再現手順をお送りください。",
+    "faq_q5": "接続済みなのに入力やトラックパッドが使えません",
+    "faq_a5": "Mac のアクセシビリティ権限と、対象アプリの入力フォーカスをご確認ください。トラックパッドには対応 iPhone 版、Pro、Mac 2.0 以降が必要です。古い Mac 版は更新してください。",
+    "faq_q6": "Mac 未接続でも使えますか？",
+    "faq_a6": "音声認識とメッセージ保存ができます。接続後に未送信メッセージを一括自動送信しません。送りたいメッセージをダブルタップするか再送メニューを使ってください。キーやトラックパッドで Mac を操作するには接続が必要です。",
+    "privacy": "プライバシーポリシー",
+    "tutorials_link": "使い方"
+  },
+  "ko": {
+    "page_title": "VBCC — VibeCoding Controller",
+    "meta_description": "iPhone을 Mac 리모컨으로: 음성 입력, 원격 키, 빠른 명령과 Pro 트랙패드. VBCC Mac 2.0 다운로드.",
+    "typewriter": [
+      "iPhone =",
+      "VibeCoding 리모컨"
+    ],
+    "tagline": "음성 입력 · 원격 키 · 트랙패드",
+    "cta_mac": "GitHub에서 다운로드",
+    "cta_hosted": "웹사이트에서 다운로드",
+    "cta_soon": "준비 중",
+    "appstore_badge": "App Store에서 iPhone 앱 받기",
+    "cta_note": "iOS 26 이상이 필요합니다. Mac을 제어하려면 데스크톱 앱을 설치하고 연결하세요. 연결 전에도 음성을 인식하고 메시지를 저장할 수 있습니다.",
+    "release_link": "2.0 릴리스 노트 보기",
+    "about_title": "VibeCoding Controller",
+    "about_p1": "<strong>VBCC</strong>는 iPhone을 Mac 입력 리모컨으로 바꿉니다. 아이디어를 말하고, 텍스트와 단축키를 보내고, Pro 트랙패드로 포인터를 움직이세요.",
+    "about_p2": "로컬 네트워크에서 페어링하며 VBCC 계정은 필요 없습니다. 기본 iPhone 음성 인식이나 직접 설정한 Doubao를 사용하고, Mac에서 선택적으로 텍스트를 다듬을 수 있습니다.",
+    "features_title": "현재 버전의 기능",
+    "f1_title": "음성 입력을 바로 Mac으로",
+    "f1_desc": "iPhone 시스템 음성 인식 또는 직접 설정한 Doubao ASR을 사용하세요. 인식 언어와 오디오 입력 장치를 선택해 Mac의 포커스된 입력란에 텍스트를 보냅니다.",
+    "f2_title": "손안의 원격 키",
+    "f2_desc": "L/R 버튼으로 탐색 및 편집 키를 보냅니다. Mac 앱은 ⌘ / ⌥ / ⇧ / ⌃ 보조 키 조합도 지원합니다.",
+    "f3_title": "사용자 지정 빠른 명령 <sup>Pro</sup>",
+    "f3_desc": "텍스트나 키 조합을 이름 있는 버튼으로 저장하고 순서를 바꾸며 내장 예시를 참고하세요. 시스템 단축어에 추가하고 지원되는 iPhone의 동작 버튼에도 연결할 수 있습니다.",
+    "f4_title": "메시지 기록과 오프라인 저장",
+    "f4_desc": "메시지를 기기에 저장하고 복사, 재전송, Markdown 미리보기를 사용하세요. Mac 연결 전에도 녹음하고 대기 메시지를 저장한 뒤, 연결 후 두 번 탭해 직접 다시 보낼 수 있습니다.",
+    "f5_title": "원격 트랙패드 <sup>Pro</sup>",
+    "f5_desc": "한 손가락 이동, 탭, 두 번 탭, 길게 눌러 드래그, 두 손가락 탭으로 우클릭을 지원합니다. 가로·세로 및 관성 스크롤을 사용하고 포인터와 스크롤 감도를 각각 조절하세요.",
+    "f6_title": "세 가지 홈 레이아웃",
+    "f6_desc": "기본 메시지 화면에서 음성 입력과 기록을 함께 봅니다. Pro는 큰 버튼의 명령 화면과 트랙패드 화면을 추가합니다.",
+    "f7_title": "Mac에서 텍스트 다듬기",
+    "f7_desc": "Ollama 또는 Doubao를 선택적으로 연결하고 모델, 프롬프트, 시간 제한을 설정하며 연결을 테스트하세요. 모델 서비스는 직접 준비해야 하며 VBCC에는 모델이 포함되지 않습니다.",
+    "f8_title": "개발 도구 Hooks 알림 <sup>Pro</sup>",
+    "f8_desc": "Mac에서 Claude Code, Codex, Cursor의 Hooks를 설정하세요. 발생한 알림을 연결된 iPhone으로 전달해 메시지 목록에서 확인합니다.",
+    "f9_title": "사용자 지정 음성 핫워드 <sup>Pro</sup>",
+    "f9_desc": "이름, 제품명, 전문 용어의 단어 목록을 만들고 활성 목록을 전환하세요. 일치 통계를 확인해 자주 쓰는 표현의 인식을 돕습니다.",
+    "f10_title": "iCloud 동기화 <sup>Pro</sup>",
+    "f10_desc": "활성화하면 동일한 Apple 계정의 기기 간에 메시지, 핫워드, 빠른 명령 및 민감하지 않은 설정을 동기화합니다. 페어링 자격 증명, API 키, 디버그 로그는 기기에만 보관됩니다.",
+    "setup_title": "세 단계로 Mac 연결",
+    "setup_1_title": "두 앱 설치",
+    "setup_1_desc": "iPhone에 VBCC를 설치하세요. Mac 2.0을 다운로드해 응용 프로그램 폴더로 드래그합니다. Mac 패키지는 Apple Silicon과 Intel을 모두 지원합니다.",
+    "setup_2_title": "권한 허용 및 페어링",
+    "setup_2_desc": "두 기기가 서로 통신할 수 있는 네트워크를 사용하세요. iPhone의 로컬 네트워크 접근을 허용하고 Mac 시스템 설정 → 개인정보 보호 및 보안 → 손쉬운 사용에서 VBCC를 허용합니다. 안내에 따라 Mac에 표시된 숫자를 입력하세요.",
+    "setup_3_title": "입력란 선택 후 시작",
+    "setup_3_desc": "Mac의 입력란을 선택한 후 iPhone에서 음성 텍스트나 키를 보내세요. Pro 사용자는 홈 레이아웃 설정에서 명령 또는 트랙패드로 전환할 수 있습니다.",
+    "setup_help": "사용 방법 및 설정 안내 보기 →",
+    "faq_title": "자주 묻는 질문",
+    "faq_q1": "음성과 텍스트는 어디로 전송되나요?",
+    "faq_a1": "시스템 음성 인식은 iPhone에서 처리합니다. Doubao ASR을 켜면 설정한 서비스로 오디오를 보냅니다. 텍스트는 로컬 연결로 페어링된 Mac에 전달되고, Mac 텍스트 다듬기를 켠 경우 선택한 모델 서비스에도 전송됩니다. Pro iCloud 동기화는 켰을 때만 본인 Apple 계정의 비공개 공간을 사용합니다.",
+    "faq_q2": "인터넷이 필요한가요?",
+    "faq_a2": "두 기기가 네트워크에서 서로 통신할 수 있어야 합니다. 같은 로컬 네트워크를 사용하거나 Wi-Fi를 켜고 양쪽에서 P2P/AWDL을 활성화해 직접 연결하세요. 최초 음성 모델 다운로드, 클라우드 ASR, 원격 텍스트 다듬기 및 iCloud 동기화에는 해당 네트워크 연결이 필요합니다.",
+    "faq_q3": "VBCC 요금은 어떻게 되나요?",
+    "faq_a3": "Mac 앱은 무료로 다운로드할 수 있습니다. iPhone의 기본 음성 입력, L/R 키, 메시지 기록은 무료입니다. Pro는 일회성 구매이며 빠른 명령, 명령·트랙패드 화면, 핫워드, Mac Hooks 알림 및 iCloud 동기화를 제공합니다. 가격은 앱에서 확인하세요.",
+    "faq_q4": "문제나 제안은 어디로 보내나요?",
+    "faq_a4": "<a href=\"mailto:imyiangyang@gmail.com\">imyiangyang@gmail.com</a>으로 두 앱의 버전과 재현 단계를 보내주세요.",
+    "faq_q5": "연결됐지만 입력이나 트랙패드가 작동하지 않아요",
+    "faq_a5": "Mac의 손쉬운 사용 권한과 대상 앱의 입력 포커스를 확인하세요. 원격 트랙패드에는 호환 iPhone 앱, Pro, Mac 2.0 이상이 필요합니다. 이전 Mac 앱은 먼저 업데이트하세요.",
+    "faq_q6": "Mac 연결 없이도 사용할 수 있나요?",
+    "faq_a6": "먼저 음성을 인식하고 메시지를 저장할 수 있습니다. 연결되어도 대기 메시지를 모두 자동 전송하지 않습니다. 보낼 메시지를 두 번 탭하거나 재전송 메뉴를 사용하세요. 원격 키나 트랙패드로 Mac을 제어하려면 연결이 필요합니다.",
+    "privacy": "개인정보 처리방침",
+    "tutorials_link": "사용 방법"
+  }
+};
 
     const langNames = {
       "zh-Hans": "简体中文",
@@ -837,6 +1026,8 @@
       if (btn) btn.textContent = langNames[lang] + ' ▾';
       document.documentElement.lang = lang;
       if (t.page_title) document.title = t.page_title;
+      document.querySelector('meta[name="description"]').content = t.meta_description;
+      document.querySelector('meta[property="og:description"]').content = t.meta_description;
       startTypewriter(t.typewriter);
     }
 
