@@ -7,8 +7,7 @@
   <meta name="theme-color" content="#090909">
   <meta name="description" content="One More 使用教程。">
   <title>使用方法 | One More</title>
-  <link rel="icon" type="image/svg+xml"
-    href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23f4f4ef'/%3E%3Cpath d='M24 18v28l22-14z' fill='%23090909'/%3E%3C/svg%3E">
+  <link rel="icon" type="image/png" sizes="256x256" href="icon-256.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
@@ -78,7 +77,9 @@
       display: block;
       width: 30px;
       height: 30px;
-      border-radius: 8px;
+      border-radius: 7px;
+      object-fit: contain;
+      box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.08);
     }
 
     .brand-name {
@@ -257,10 +258,7 @@
   <div class="shell">
     <header>
       <a class="brand" href="index.html" aria-label="One More">
-        <svg class="brand-icon" width="30" height="30" viewBox="0 0 64 64" aria-hidden="true">
-          <rect width="64" height="64" rx="16" fill="#f4f4ef"></rect>
-          <path d="M24 18v28l22-14z" fill="#090909"></path>
-        </svg>
+        <img class="brand-icon" src="icon-256.png" alt="" width="30" height="30">
         <span class="brand-name">ONE MORE</span>
       </a>
       <div class="page-label" data-i18n="page_label">使用方法</div>
